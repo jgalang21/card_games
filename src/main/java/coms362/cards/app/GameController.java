@@ -1,31 +1,23 @@
 package coms362.cards.app;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 import coms362.cards.abstractcomp.GameFactory;
-import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Rules;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.fiftytwo.PartyRole;
-import coms362.cards.fiftytwo.PickupRules;
 import coms362.cards.streams.InBoundQueue;
 import coms362.cards.streams.RemoteTableGateway;
 import events.inbound.ConnectEvent;
 import events.inbound.EndPlay;
 import events.inbound.Event;
-import events.inbound.EventFactory;
-import events.inbound.EventUnmarshallers;
 import events.inbound.InvalidGameSelection;
 import events.inbound.NewPartyEvent;
 import events.inbound.SelectGame;
 import events.inbound.SetQuorumEvent;
 import events.inbound.SysEvent;
 import model.Game;
-import model.Party;
-import model.TableBase;
+import model.Quorum;
 
 
 /**
@@ -131,11 +123,10 @@ public class GameController
 		String selected = ""; 
 		if ( abstractFactory.isValidSelection(selected = e.getSelection() ) ){
 			game.setSelected(selected);
-			if (e.hasQuorum()){
-				// force to bottom of stack so it is processed 
-				// before other game-specific events. 
-				deferred.insertElementAt(new SetQuorumEvent(e.getQuorum()), 0);
-			}
+			// without other information force to a maximum of 4 
+			// To give the rules a chance to supply game specific limits. 
+			Quorum pushQ = (e.hasQuorum()) ? e.getQuorum() : new Quorum(4,4); 
+			deferred.insertElementAt(new SetQuorumEvent(e.getQuorum()), 0);			
 		} else {
 			// we need to inform the alleged host now
 			System.out.format("GameController. SelectGame : %s is not a supported game.", selected );
