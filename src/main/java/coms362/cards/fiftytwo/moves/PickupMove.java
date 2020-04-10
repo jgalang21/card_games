@@ -1,6 +1,4 @@
-package coms362.cards.fiftytwo;
-
-import java.io.IOException;
+package coms362.cards.fiftytwo.moves;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
@@ -11,6 +9,7 @@ import events.remote.HideCardRemote;
 import events.remote.RemoveFromPileRemote;
 import events.remote.ShowCardRemote;
 import events.remote.ShowPlayerScore;
+import events.remote.view.xform.CameraAtOwnerVis;
 import model.Card;
 
 public class PickupMove implements Move {
@@ -35,7 +34,7 @@ public class PickupMove implements Move {
 		view.send(new RemoveFromPileRemote("Random", c));
 		view.send(new AddToPileRemote("Tidy", c));
 		view.send(new ShowCardRemote(c));
-		view.send(new ShowPlayerScore(p, null));
+		view.send(new CameraAtOwnerVis(new ShowPlayerScore(p, null)));
 
 	}
 	

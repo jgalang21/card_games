@@ -1,17 +1,20 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.fiftytwo.moves;
 
+import java.util.Map;
 import java.util.Random;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.fiftytwo.DealButton;
 import events.inbound.DealEvent;
 import events.remote.CreateButtonRemote;
 import events.remote.CreatePile;
 import events.remote.SetBottomPlayerTextRemote;
 import events.remote.SetGameTitleRemote;
 import events.remote.SetupTable;
+import events.remote.view.xform.CameraAtOwnerVis;
 import model.Button;
 import model.Card;
 import model.Location;
@@ -19,13 +22,16 @@ import model.Pile;
 
 public class PickupInitCmd implements Move {
 	private int nextId;
-	Player p1;
-	Player p2;
+	private Map<Integer, Player> players ;
+	private String title = "52 Card Pickup";
 
-	public PickupInitCmd(Player p1, Player p2) {
-	    nextId = 0;
-		this.p1 = p1;
-		this.p2 = p2;
+	public PickupInitCmd( Map<Integer, Player> players, String title) {
+	    this(players);
+	    this.title = title;
+	}
+	
+	public PickupInitCmd( Map<Integer, Player> players) {
+		this.players = players;
 	}
 
 	public void apply(Table table){
@@ -35,7 +41,6 @@ public class PickupInitCmd implements Move {
             for (String suit : Card.suits) {
                 for (int i = 1; i <= 13; i++) {
                     Card card = new Card();
-                    card.setId(nextId++);
                     card.setSuit(suit);
                     card.setNumber(i);
                     card.setX(random.nextInt(200) + 100);
@@ -53,9 +58,12 @@ public class PickupInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
-		view.send(new SetGameTitleRemote("52 Card Pickup"));
-		view.send(new SetBottomPlayerTextRemote("Dealer", p1));
-		view.send(new SetBottomPlayerTextRemote("Player", p2));
+		view.send(new SetGameTitleRemote(title));
+		
+		for (Player p : players.values()){
+			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
+			view.send(new CameraAtOwnerVis(new SetBottomPlayerTextRemote(role, p)));
+		}
 		view.send(new CreatePile(new Pile("discardPile", new Location(500,359))));
 		String id = ""; 
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));

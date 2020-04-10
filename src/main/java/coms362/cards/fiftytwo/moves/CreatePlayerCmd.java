@@ -1,10 +1,11 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.fiftytwo.moves;
 
 import java.util.List;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.streams.RemoteTableGateway;
 
 public class CreatePlayerCmd implements Move {

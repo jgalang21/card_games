@@ -13,12 +13,12 @@ import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.fiftytwo.PickupRules;
 import coms362.cards.streams.InBoundQueue;
 import coms362.cards.streams.RemoteTableGateway;
-import coms362.events.InvalidGameSelection;
 import events.inbound.ConnectEvent;
 import events.inbound.EndPlay;
 import events.inbound.Event;
 import events.inbound.EventFactory;
 import events.inbound.EventUnmarshallers;
+import events.inbound.InvalidGameSelection;
 import events.inbound.NewPartyEvent;
 import events.inbound.SelectGame;
 import events.inbound.SetQuorumEvent;
@@ -106,7 +106,7 @@ public class GameController
 
 	// TODO: make specific handlers for each match pre-req event. 
 	public void apply(ConnectEvent e, Game game) {		// TODO Auto-generated method stub
-		System.out.println("GameRules.apply "+e.getClass().getSimpleName() );
+		System.out.println("GameControllerRules.apply "+e.getClass().getSimpleName() );
 		System.out.println(e.toString());
  
 
@@ -119,9 +119,11 @@ public class GameController
 		String pnum = null; 
 		if ((pnum = e.getParam("player"))!=null){
 			pnum = (pnum.isEmpty() ? "1" : pnum );
+			System.out.format("ConnectHandler Deferring newPartyEvent, pos=%s, socket=%s%n",pnum, e.getSocketId());
 			deferred.push(
-				new NewPartyEvent( PartyRole.player, pnum, e.getSocketId())
+				new NewPartyEvent( PartyRole.player, pnum, e.getSocketId())				
 			);
+			System.out.format("ConnectHandler: after deferred = %s%n", deferred.toString());
 		}
 	}
 	
@@ -145,13 +147,14 @@ public class GameController
 	public void apply (InvalidGameSelection e, Game game)
 	{
 		System.out.println("InvalidGameSelection Event");
-		try {
+/*		try {
 			remote.send(new SystemStatus( e.getMsg() ), "default");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	}
+*/
+		}
 
 	public void apply(NewPartyEvent e, Game game) {
 		deferred.add(e);		

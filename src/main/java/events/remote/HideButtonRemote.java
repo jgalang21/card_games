@@ -1,8 +1,11 @@
-package coms362.cards.fiftytwo;
+package events.remote;
 
 import coms362.cards.streams.Marshalls;
+import events.remote.view.xform.DisplayAttrs;
+import events.remote.view.xform.RemoteEvent;
 
-public class HideButtonRemote implements Marshalls {
+public class HideButtonRemote extends RemoteEventBase
+implements RemoteEvent, Marshalls {
 
 	private String remoteId;
 	
@@ -11,10 +14,11 @@ public class HideButtonRemote implements Marshalls {
 	}
 	
 	@Override
-	public String marshall() {
+	public String marshall(DisplayAttrs attrs) {
 		return String.format("cards362.getById('%s').hide();\n", remoteId);			 
-	}
 
+	}
+	
 	@Override
 	public String stringify() {
 		return String.format("HideButtonRemote");

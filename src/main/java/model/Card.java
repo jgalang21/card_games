@@ -7,7 +7,9 @@ package model;
 
 // TODO: replace x,y with Location object. 
 public class Card {
-
+	
+	private static int serialId = 0; 
+	
 	public static final String suits[] = {"h", "s", "d", "c"};
 
 	private String suit;
@@ -18,12 +20,14 @@ public class Card {
     private int rotate;
     private boolean faceUp;
     
+    public Card() {
+    	id = ++serialId;
+    }
+    
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+
     public int getX() {
         return x;
     }

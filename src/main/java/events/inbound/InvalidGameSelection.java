@@ -1,12 +1,10 @@
-package coms362.events;
+package events.inbound;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.RulesDispatch;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.GameController;
-import events.inbound.Event;
-import events.inbound.SysEvent;
 import model.Game;
 
 /**

@@ -13,8 +13,8 @@ import coms362.cards.abstractcomp.View;
 import coms362.cards.abstractcomp.ViewFactory;
 import coms362.cards.fiftytwo.P52PlayerView;
 import coms362.cards.fiftytwo.PartyRole;
-import coms362.cards.fiftytwo.PickupInitCmd;
 import coms362.cards.fiftytwo.PickupPlayer;
+import coms362.cards.fiftytwo.moves.PickupInitCmd;
 import coms362.cards.streams.InBoundQueue;
 import coms362.cards.streams.RemoteTableGateway;
 import events.inbound.Event;
@@ -65,6 +65,7 @@ public class MatchController {
 				// TODO: add support for deferring premature game play events? 
 				System.out.println("Match Controller exception "+ex.getMessage());
 				System.out.println(" ... event = "+ e.toString());
+				ex.printStackTrace();
 			}
 		}
 	

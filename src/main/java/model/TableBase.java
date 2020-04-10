@@ -21,12 +21,14 @@ import coms362.cards.abstractcomp.Table;
 public class TableBase implements Table {
 	
 	private Map<String,Pile> piles = new HashMap<String,Pile>();
+	// following is indexed by player position (playernum)
 	private Map<Integer, Player> players = new HashMap<Integer, Player>();
 	private Random rng = new Random();
 	private boolean matchOver = false;
 	private Quorum quorum = null; 
 	private Integer currentPlayer = -1;
 	private PlayerFactory playerFactory;
+	// following is indexed by socketId
 	private Map<String, Player> playerIndex = new HashMap<String,Player>();
 	
 	public TableBase(PlayerFactory pFactory){
@@ -38,8 +40,11 @@ public class TableBase implements Table {
 	}
 
 	public void addPlayer(Player p) {
+		System.out.format("Table.addPlayer at pos=%d, hash=%d%n", p.getPlayerNum(), p.hashCode());
 		players.put(p.getPlayerNum(), p);
 		playerIndex.put(p.getSocketId(), p);
+		System.out.format("Table.addPlayer after players=%s%n", players.toString());
+		
 	}
 
 	public void apply(Move move) {
@@ -65,11 +70,13 @@ public class TableBase implements Table {
 	}
 
 	public int addToScore(Player p, int i) {
-		System.out.println("Table: addToScore p = "+p);
+		System.out.format("Table: addToScore player = %d%n", p.getPlayerNum());
+		System.out.format("Table.addtoScore players = %s%n", players.toString());
 		Player playn = players.get(p.getPlayerNum());
 		if (playn != null) {
 			return playn.addToScore(i);
 		}
+		System.out.println("Table.addToScore failed to find player. ");
 		return 0;
 	}
 
@@ -84,6 +91,9 @@ public class TableBase implements Table {
 	public void setMatchOver(boolean over) {
 		matchOver = over;
 		
+	}
+	public Map<Integer,Player> getPlayerMap(){
+		return players;
 	}
 	
 	public Collection<Player> getPlayers(){
@@ -108,6 +118,7 @@ public class TableBase implements Table {
 
 	@Override
 	public void setQuorum(Quorum quorum) {
+		System.out.format("Table.setQuorum: before=%s, arg=%s%n", this.quorum, quorum);
 		this.quorum = quorum;		
 	}
 
@@ -119,8 +130,8 @@ public class TableBase implements Table {
 	@Override
 	public void createPlayer(Integer position, String socketId) {
 		Player p = playerFactory.createPlayer(position, socketId );
-		players.put(position, p);
-		playerIndex .put(socketId,p);
+		System.out.format("Table.createPlayer pos=%d, hash=%d", position, p.hashCode());
+		addPlayer(p);
 	}
 
 	@Override

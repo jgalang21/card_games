@@ -1,6 +1,7 @@
 package coms362.cards.abstractcomp;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Random;
 
 import model.Card;
@@ -34,23 +35,23 @@ import model.Quorum;
  */
 public interface Table {
 
-
-	void addPile(Pile pile);
-	void addPlayer(Player p);
+	public void addPile(Pile pile);
+	public void addPlayer(Player p);
 	
-	Pile getPile(String string);
-	void removeFromPile(String string, Card c);
-	void addToPile(String string, Card c);
-	int addToScore(Player p, int i);
-	boolean isMatchOver();
-	void setMatchOver(boolean over);
-	Random getRandom();
-	Party getHost();
-	boolean partiesReady();
-	Player getCurrentPlayer();
-	void setQuorum(Quorum quorum);
+	public Pile getPile(String string);
+	public void removeFromPile(String string, Card c);
+	public void addToPile(String string, Card c);
+	public int addToScore(Player p, int i);
+	public boolean isMatchOver();
+	public void setMatchOver(boolean over);
+	public Random getRandom();
+	public Party getHost();
+	public boolean partiesReady();
+	public Player getCurrentPlayer();
+	public void setQuorum(Quorum quorum);
 	public Quorum getQuorum();
 	public Collection<Player> getPlayers();
+	public Map<Integer,Player> getPlayerMap(); //index by playerNum (position)
 	public void createPlayer(Integer pos, String socketId);
 	public Player lookupPlayer(String socketId);
 	public Player getPlayer(Integer pos);

@@ -56,10 +56,12 @@ public class ViewFacade {
 	}
 
 	public void send(Marshalls cmd) {
+		System.out.format("ViewFacade.send views=%s%n", views.toString());
 		Iterator<View> iter = views.iterator();
 		while (iter.hasNext()) {
 			View next = iter.next();
 			try {
+				System.out.format("ViewFacade.send, inloop, view=%s%n", next.toString());				
 				next.send(cmd);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

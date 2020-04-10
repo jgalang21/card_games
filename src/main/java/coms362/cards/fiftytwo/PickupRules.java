@@ -8,6 +8,11 @@ import coms362.cards.abstractcomp.Rules;
 import coms362.cards.abstractcomp.RulesDispatch;
 import coms362.cards.abstractcomp.RulesDispatchBase;
 import coms362.cards.abstractcomp.Table;
+import coms362.cards.fiftytwo.moves.CreatePlayerCmd;
+import coms362.cards.fiftytwo.moves.DealCommand;
+import coms362.cards.fiftytwo.moves.PickupInitCmd;
+import coms362.cards.fiftytwo.moves.PickupMove;
+import coms362.cards.fiftytwo.moves.SetQuorumCmd;
 import events.inbound.CardEvent;
 import events.inbound.ConnectEvent;
 import events.inbound.DealEvent;
@@ -45,11 +50,8 @@ implements Rules, RulesDispatch {
 		return new DealCommand(table, player);
 	}
 	
-	public Move apply(InitGameEvent e, Table table, Player player){
-		Player p1 = table.getPlayer((Integer) 1);
-		Player p2 = table.getPlayer((Integer) 2); 
-		
-		return new PickupInitCmd( p1, p2);
+	public Move apply(InitGameEvent e, Table table, Player player){	
+		return new PickupInitCmd( table.getPlayerMap());
 	}
 	
 	public Move apply(NewPartyEvent e, Table table, Player player){
@@ -67,12 +69,12 @@ implements Rules, RulesDispatch {
 		
 		Move rval = new DropEventCmd(); 
 		System.out.println("Rules apply ConnectEvent "+e);
-		if (table.getQuorum().meets(table.getPlayers().size()+1)){
+		if (!table.getQuorum().exceeds(table.getPlayers().size()+1)){
 			if (e.getRole() == PartyRole.player){				
 				rval =  new CreatePlayerCmd( e.getPosition(), e.getSocketId());
 			}			
 		}
-		System.out.println("Rules rval = "+rval);
+		System.out.println("PickupRules connectHandler rval = "+rval);
 		return rval;
 	}
 

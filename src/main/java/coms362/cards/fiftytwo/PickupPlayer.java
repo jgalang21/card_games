@@ -1,5 +1,7 @@
 package coms362.cards.fiftytwo;
 
+import javax.swing.text.Position;
+
 import coms362.cards.abstractcomp.Player;
 
 public class PickupPlayer implements Player {
@@ -32,6 +34,11 @@ public class PickupPlayer implements Player {
 	@Override
 	public int getScore() {
 		return score;
+	}
+	
+	@Override 
+	public String toString(){
+		return String.format("Player: pos=%d, socket=%s, score=%d%n" , playerNum, socketId, score);
 	}
 
 

@@ -31,4 +31,16 @@ public class Location {
 		return y; 
 	}
 
+	public Location translate(int i, int j) {
+		return new Location( x + i, y + j ); 
+	}
+
+	public Location rotate90() {
+		return new Location(y, -x);
+	}
+	
+	public Location rotate180() {
+		return new Location(-x, -y);
+	}
+
 }

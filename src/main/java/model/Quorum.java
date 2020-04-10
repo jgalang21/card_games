@@ -43,6 +43,11 @@ public class Quorum {
 		}
 	}
 	
+	public Quorum(int min, int max) {
+		this.min=min;
+		this.max=max;
+	}
+
 	public boolean isSet(){
 		return (min > 0 || max > 0);
 	}

@@ -1,11 +1,12 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.fiftytwo.moves;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
-import coms362.cards.abstractcomp.View;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.fiftytwo.DealButton;
 import events.remote.CreateRemote;
+import events.remote.HideButtonRemote;
 import events.remote.UpdateRemote;
 import model.Card;
 import model.Pile;

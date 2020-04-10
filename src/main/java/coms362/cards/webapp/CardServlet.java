@@ -15,7 +15,7 @@ public class CardServlet extends WebSocketServlet {
     
     @Override
     public void configure(WebSocketServletFactory factory) {
-        //factory.getPolicy().setIdleTimeout(10000);
+        factory.getPolicy().setIdleTimeout(1000*60*15);
         factory.register(CardSocket.class);
         factory.setCreator(cardSocketCreator);
     }

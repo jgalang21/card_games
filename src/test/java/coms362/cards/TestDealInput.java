@@ -17,9 +17,9 @@ import coms362.cards.app.PlayController;
 import coms362.cards.app.ViewFacade;
 import coms362.cards.fiftytwo.LoggingView;
 import coms362.cards.fiftytwo.P52GameFactory;
-import coms362.cards.fiftytwo.PickupInitCmd;
 import coms362.cards.fiftytwo.PickupPlayer;
 import coms362.cards.fiftytwo.PickupRules;
+import coms362.cards.fiftytwo.moves.PickupInitCmd;
 import coms362.cards.streams.InBoundQueue;
 import events.inbound.DealEvent;
 import events.inbound.EndPlay;
@@ -47,7 +47,7 @@ public class TestDealInput {
 		
 		// initialize the local model for Pu52 match
 		Table table = new TableBase(new P52GameFactory());
-		Move move = new PickupInitCmd(player, p2 );
+		Move move = new PickupInitCmd(table.getPlayerMap() );
 		move.apply(table);
 		Rules rules = new PickupRules();
 		

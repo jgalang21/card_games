@@ -20,7 +20,7 @@ public class RemoteTableGateway {
 		
 	}
 	
-	public void send(Marshalls e, String socketId) throws IOException {
+/*	public void send(Marshalls e, String socketId) throws IOException {
 		System.out.println("send (marshall) requests "+socketId);
 		String msg = e.marshall();
 		if (msg != null && !msg.isEmpty()){
@@ -28,7 +28,7 @@ public class RemoteTableGateway {
 			getEndpoint(socketId).sendString(e.marshall());
 		}
 	}
-	
+*/	
 	public void sendString(String msg, String socketId) throws IOException{
 		System.out.println("send (msg) requests "+socketId);
 		if (msg != null && !msg.isEmpty()){
