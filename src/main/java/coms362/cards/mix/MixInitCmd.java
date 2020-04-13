@@ -87,11 +87,10 @@ public class MixInitCmd implements Move {
 			view.send(new CreateRemote(markers.cards.get(p)));
 			view.send(new TableRelativePos(new UpdateRemote(markers.cards.get(p))));
 		}
-/*		for (Card c : pointers.cards.values()){		
+		for (Card c : pointers.cards.values()){		
 			view.send(new CreateRemote(c));
 			view.send(new OrientToTableCenter(new UpdateRemote(c)));
 		}
-*/
 	}
 
 }

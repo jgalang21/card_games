@@ -126,7 +126,7 @@ public class GameController
 			// without other information force to a maximum of 4 
 			// To give the rules a chance to supply game specific limits. 
 			Quorum pushQ = (e.hasQuorum()) ? e.getQuorum() : new Quorum(4,4); 
-			deferred.insertElementAt(new SetQuorumEvent(e.getQuorum()), 0);			
+			deferred.insertElementAt(new SetQuorumEvent(pushQ), 0);			
 		} else {
 			// we need to inform the alleged host now
 			System.out.format("GameController. SelectGame : %s is not a supported game.", selected );
