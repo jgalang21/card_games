@@ -64,4 +64,20 @@ public class Card {
     public void setNumber(int number) {
         this.number = number;
     }
+    
+    public Location getPosition(){
+    	return new Location( x, y );
+    }
+    
+    public void setPosition(Location loc){
+    	x = loc.getX();
+    	y = loc.getY();
+    }
+    
+    @Override
+    public String toString(){
+    	return String.format("Card:%d %d%s id=%s%n",
+    		hashCode(), getNumber(), getSuit(), getId()
+    	);
+    }
 }

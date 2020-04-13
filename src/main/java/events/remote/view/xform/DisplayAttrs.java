@@ -66,10 +66,11 @@ public class DisplayAttrs {
 	
 	@Override
 	public String toString(){
-		return String.format("owner=%s, current=%s, camera=%d, vis=%s, face = %s%n",
+		return String.format("owner=%s, current=%s, camera=%d, vis=%s, face = %s, pos= %d, %d%n",
 			(owner==null) ? "null": owner.toString(),
 			(current==null) ? "null": current.toString(), 
-			cameraPos, vis.name(), face.name()
+			cameraPos, vis.name(), face.name(),
+			pos.getX(), pos.getY()
 		);
 	}
 }

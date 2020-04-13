@@ -17,6 +17,7 @@ public class CameraAtOwnerVis extends AbstractREWrapper {
 	@Override
 	public DisplayAttrs personalize(View view) {
 		DisplayAttrs attrs = child.personalize(view);
+		System.out.println("CameraA1OwnerVis.personalize, attrs="+attrs.toString());		
 		Player owner = attrs.owner;
 		if ( owner != null && owner.getPlayerNum() == view.getCameraPosition()){
 			attrs.vis = ElVisibility.visible;

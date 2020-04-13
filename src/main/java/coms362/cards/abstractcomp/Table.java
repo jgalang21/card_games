@@ -34,6 +34,8 @@ import model.Quorum;
  *
  */
 public interface Table {
+	
+	public static final int kWidth = 600;
 
 	public void addPile(Pile pile);
 	public void addPlayer(Player p);

@@ -1,5 +1,6 @@
 package events.remote.view.xform;
 
+import coms362.cards.abstractcomp.Table;
 import coms362.cards.abstractcomp.View;
 import coms362.cards.streams.Marshalls;
 import model.Location;
@@ -27,10 +28,9 @@ public class TableRelativePos extends AbstractREWrapper {
 		return "TableRelativePos Wrapping "+super.getClass().getSimpleName(); 
 	}
 	
-	// TODO: inject table size 
-	// TODO: move to Location
+
 	private Location rotateForCamera(int cam, Location pos){
-		final int max = 600; // size of table. 
+		final int max = Table.kWidth; // size of table. 
 		Location normPos = pos.translate(-max/2,-max/2);
 		Location rotNorm = null; 
 		switch (cam){
