@@ -10,6 +10,7 @@ public class SetQuorumEventSP extends SetQuorumEvent{
 
 Quorum quorum = null; 
 	
+	
 	public SetQuorumEventSP(String min, String max) {
 		super(min, max);
 		this.quorum = new Quorum(1,1);
@@ -24,8 +25,5 @@ Quorum quorum = null;
 	public Move dispatch(RulesDispatch rules, Table table, Player player) {
 		return rules.apply(this, table, player);
 	}
-
-	public Quorum getQuorum() {
-		return quorum;
-	}
+	
 }

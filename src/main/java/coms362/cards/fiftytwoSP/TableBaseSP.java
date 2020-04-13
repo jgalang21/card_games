@@ -18,5 +18,9 @@ public class TableBaseSP extends TableBase {
 		return quorum != null && quorum.meets(1);
 	}
 
+	@Override
+	public Quorum getQuorum() {
+		return new Quorum(1, 1);
+	}
 
 }

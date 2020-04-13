@@ -25,6 +25,8 @@ public class PickupRulesSP extends PickupRules {
 		Player p1 = table.getPlayer((Integer) 1);
 	//	Player p2 = table.getPlayer((Integer) 2); 
 		
-		return new PickupInitCmd(table.getPlayerMap());
+		return new PickupInitCmdSP(table.getPlayerMap());
 	}
+	
+	
 }

@@ -6,12 +6,16 @@ import coms362.cards.abstractcomp.Rules;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.abstractcomp.View;
 import coms362.cards.abstractcomp.ViewFactory;
-import coms362.cards.fiftytwo.PartyRole;
+import coms362.cards.fiftytwo.P52GameFactory;
+import coms362.cards.fiftytwo.PickupRules;
 import coms362.cards.streams.RemoteTableGateway;
 import model.PlayerFactory;
 
-public abstract class SP52PUFactory implements GameFactory, PlayerFactory, ViewFactory {
+public class SP52PUFactory extends P52GameFactory {
 
-	
+	@Override
+	public Rules createRules() {
+		return new PickupRulesSP();
+	}
 
 }
