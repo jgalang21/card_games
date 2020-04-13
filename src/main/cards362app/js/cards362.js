@@ -95,6 +95,10 @@ var cards362 = (function() {
 			this.el.classList.remove('player-upright')
 		}
 	};
+	
+	cards.Card.prototype.setZ = function(z){
+		this.style.zIndex="z";
+	}
 
 	cards.Card.prototype.setFaceUp = function(faceUp) {
 		if (faceUp) {

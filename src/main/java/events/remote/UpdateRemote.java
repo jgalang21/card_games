@@ -28,7 +28,7 @@ implements RemoteEvent, Marshalls{
 
 	@Override
     public String marshall(DisplayAttrs attrs){
-    	return	String.format("card1 = allCards[%d];\n"
+    	String rval = 	String.format("card1 = allCards[%d];\n"
 			+ "card1.moveTo(%d, %d, 1, null);\n"
 			+ "card1.rotate(%d);\n"
 			+ "card1.faceUp = %b;\n"
@@ -41,6 +41,8 @@ implements RemoteEvent, Marshalls{
 			c.getId(),
 			c.getId()
 		);
+    	System.out.println("UpdateRemote.marshall(attrs) "+rval);
+    	return rval;
     }
     
     public String stringify(){

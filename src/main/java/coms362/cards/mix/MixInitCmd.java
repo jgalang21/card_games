@@ -1,6 +1,9 @@
 package coms362.cards.mix;
 
 import java.lang.reflect.GenericArrayType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import coms362.cards.abstractcomp.Move;
@@ -26,6 +29,7 @@ public class MixInitCmd implements Move {
 	
 
 	private Map<Integer, Player> players;
+	private List<Player> orderedP = new ArrayList<Player>(); 
 	Pile markers = null;
 	Pile pointers = null; 
 	Pile[] hands = new Pile[4];
@@ -33,6 +37,8 @@ public class MixInitCmd implements Move {
 	public MixInitCmd(Map<Integer, Player> players, String title ) {
 		// TODO: register piles with table. 
 		this.players = players;
+		orderedP = new ArrayList<Player>(players.values());
+		orderedP.sort(new OnPlayerNum<Player>());
 		Location markerPos = new Location(100,50);
 		markers = new Pile("markers", markerPos );
 		initCards(markers, "h", markerPos);
@@ -46,9 +52,9 @@ public class MixInitCmd implements Move {
 	}
 	
 	private Pile initHand(int p) {
-		Pile hand = new Pile("hand"+p, new Location(300,540));
+		Pile hand = new Pile("hand"+p, new Location(180,550));
 		int rot = -15;
-		int x = 285; 
+		int x = 180; 
 		int y = 550; 
 		for (int r = 11; r < 14; r ++ ){ //r = rank
 			Card c = new Card();
@@ -65,7 +71,9 @@ public class MixInitCmd implements Move {
 	}
 
 	private void initCards(Pile pile, String suit, Location loc){
-		for (Player p : players.values() ){
+		List<Player> sortedP = new ArrayList<Player>(players.values());
+		sortedP.sort(new OnPlayerNum<Player>());
+		for (Player p : sortedP ){
 			Card c = new Card();; 
 			c.setFaceUp(true);
 			c.setNumber(p.getPlayerNum());
@@ -120,9 +128,10 @@ public class MixInitCmd implements Move {
 		}
 		System.out.println("markers = " + markers.cards.toString());
 		System.out.println("pointers = " + pointers.cards.toString());
-		for (Integer p: players.keySet()){
-			view.send(new CreateRemote(markers.cards.get(p)));
-			view.send(new OrientToTableCenter(new TableRelativePos(new UpdateRemote(markers.cards.get(p)))));
+		for (Player p: orderedP) {
+			Integer index = (Integer) p.getPlayerNum();
+			view.send(new CreateRemote(markers.cards.get(index)));
+			view.send(new OrientToTableCenter(new TableRelativePos(new UpdateRemote(markers.cards.get(index)))));
 		}	
 		for (Card c: pointers.cards.values()){
 			System.out.println("MixInitCmd pointers "+c.toString());
@@ -130,14 +139,19 @@ public class MixInitCmd implements Move {
 			view.send(new CreateRemote(c));
 			view.send(new TableRelativePos( new UpdateRemote(c)));
 		}
-/*		for (Player p: players.values() ){
+		for (Player p: orderedP ){
 			int currentPos = p.getPlayerNum();
 			Pile hand = hands[currentPos-1];
-			for (Card c : hand.cards.values()) {
+			System.out.println(hand.cards.values().toString());
+			List<Card> hCards = new ArrayList<Card>(hand.cards.values());
+			hCards.sort(new ByRank<Card>());
+
+			for (Card c : hCards) {
+				System.out.println("HandCards= "+hCards.toString());
 				view.send(new CreateRemote(c));
 				view.send(new TableRelativePos( new UpdateRemote(c)));
 			}
 		}
-		*/		
+				
 	}
 }
