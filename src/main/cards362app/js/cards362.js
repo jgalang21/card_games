@@ -39,6 +39,10 @@ var cards362 = (function() {
 		console.log(items);
 	}
 
+	function setTimer(id, eventName, time) {
+		setTimeout(function() { doSend(JSON.stringify({event: eventName, id: id})) }, time)
+	}
+
 	function getById(id) {
 		return items[id];
 	}
@@ -131,6 +135,7 @@ var cards362 = (function() {
 		createDeck: createDeck,
 		createButton: createButton,
 		getById: getById,
+		setTimer: setTimer,
 		setPlayerRotation: setPlayerRotation,
 		setPlayerDisabled: setPlayerDisabled,
 	};

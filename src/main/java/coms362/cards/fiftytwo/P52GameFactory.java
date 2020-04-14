@@ -19,7 +19,7 @@ public class P52GameFactory implements GameFactory, PlayerFactory, ViewFactory {
 
 	@Override
 	public Table createTable() {
-		return new TableBase(this);
+		return new PickupTable(this);
 	}
 
 	@Override

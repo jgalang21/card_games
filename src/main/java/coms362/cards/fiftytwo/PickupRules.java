@@ -17,8 +17,12 @@ import events.inbound.GameRestartEvent;
 import events.inbound.InitGameEvent;
 import events.inbound.NewPartyEvent;
 import events.inbound.SetQuorumEvent;
+import events.inbound.TimerEvent;
+import events.remote.SetTimerRemote;
 import model.Card;
 import model.Party;
+import model.TableBase;
+import model.Timer;
 
 public class PickupRules extends RulesDispatchBase
 implements Rules, RulesDispatch {
@@ -35,8 +39,15 @@ implements Rules, RulesDispatch {
 	public Move apply(CardEvent e, Table table, Player player){
 		
 		Card c = table.getPile("discardPile").getCard(e.getId());
-		if ( c == null){
+		PickupTable pt = (PickupTable) table;
+		if (c == null || pt.getDelayedPlayer() != null
+		        && pt.getDelayedPlayer().getPlayerNum() == player.getPlayerNum()) {
 			return new DropEventCmd();
+		}
+		if (c.getNumber() == 11 && c.getSuit() == "s") {
+		    pt.setDelayedCard(c);
+		    pt.setDelayedPlayer(player);
+		    return new DelayCmd(player);
 		}
 		return new PickupMove(c, player);		
 	}
@@ -75,6 +86,16 @@ implements Rules, RulesDispatch {
 		System.out.println("PickupRules connectHandler rval = "+rval);
 		return rval;
 	}
+	
+    public Move apply(TimerEvent e, Table table, Player player) {
+        PickupTable pt = (PickupTable) table;
+        if (pt.getDelayedPlayer() != null && 
+                player.getPlayerNum() == pt.getDelayedPlayer().getPlayerNum()) {
+            pt.setDelayedPlayer(null);
+            return new PickupMove(pt.getDelayedCard(), player);
+        }
+        return new DropEventCmd();
+    }
 
 	/**
 	 * We rely on Rules to register the appropriate input events with
@@ -90,11 +111,6 @@ implements Rules, RulesDispatch {
 		handlers.registerHandler(CardEvent.kId, (Class) CardEvent.class); 
 		handlers.registerHandler(GameRestartEvent.kId, (Class) GameRestartEvent.class); 
 		handlers.registerHandler(NewPartyEvent.kId, (Class) NewPartyEvent.class);
+		handlers.registerHandler(TimerEvent.kId, (Class) TimerEvent.class);
 	}
-
-
-
-
-
-
 }

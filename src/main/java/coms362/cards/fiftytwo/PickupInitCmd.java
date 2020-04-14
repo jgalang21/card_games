@@ -7,13 +7,11 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
-import events.inbound.DealEvent;
 import events.remote.CreateButtonRemote;
 import events.remote.CreatePile;
 import events.remote.SetBottomPlayerTextRemote;
 import events.remote.SetGameTitleRemote;
 import events.remote.SetupTable;
-import model.Button;
 import model.Card;
 import model.Location;
 import model.Pile;
@@ -21,13 +19,16 @@ import model.Pile;
 public class PickupInitCmd implements Move {
 	Map<Integer, Player> players;
 	String title = "52 Card Pickup";
+	Pile discardPile;
+    Pile tidyPile;
 	
 	public PickupInitCmd(Map<Integer, Player> players) {
 		this.players = players;
+		discardPile = new Pile("discardPile", new Location(500,359));
+        tidyPile = new Pile("tidyPile", new Location(500,359));
 	}
 
 	public void apply(Table table){
-		Pile discard = new Pile("discardPile", new Location(500,359));
 		Random random = table.getRandom();
         try {
             for (String suit : Card.suits) {
@@ -39,10 +40,11 @@ public class PickupInitCmd implements Move {
                     card.setY(random.nextInt(200) + 100);
                     card.setRotate(random.nextInt(360));
                     card.setFaceUp(random.nextBoolean());
-                    discard.cards.put(card.getId(), card);
+                    discardPile.cards.put(card.getId(), card);
                 }
             }
-            table.addPile( discard);
+            table.addPile(discardPile);
+            table.addPile(tidyPile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +59,8 @@ public class PickupInitCmd implements Move {
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 
-		view.send(new CreatePile(new Pile("discardPile", new Location(500,359))));
+		view.send(new CreatePile(discardPile));
+		view.send(new CreatePile(tidyPile));
 		String id = ""; 
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 
