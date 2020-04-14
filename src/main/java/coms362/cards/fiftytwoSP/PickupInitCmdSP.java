@@ -14,14 +14,14 @@ import events.remote.SetupTable;
 import model.Location;
 import model.Pile;
 
-public class PickupInitCmdSP extends PickupInitCmd{
+public class PickupInitCmdSP extends PickupInitCmd {
 
 	Map<Integer, Player> players;
 	String title = "52 Card Pickup Singleplayer";
 	
 	public PickupInitCmdSP(Map<Integer, Player> players) {
 		super(players);
-		this.players = players;
+		
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -30,10 +30,12 @@ public class PickupInitCmdSP extends PickupInitCmd{
 		view.send(new SetupTable());
 		view.send(new SetGameTitleRemote("52 Card Pickup SinglePlayer"));
 
+		/**
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
+		**/
 
 		view.send(new CreatePile(new Pile("discardPile", new Location(500,359))));
 		String id = ""; 

@@ -8,19 +8,23 @@ import coms362.cards.fiftytwo.CreatePlayerCmd;
 import coms362.cards.fiftytwo.DropEventCmd;
 import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.fiftytwo.PickupRules;
+import coms362.cards.fiftytwo.SetQuorumCmd;
 import events.inbound.ConnectEvent;
 import events.inbound.InitGameEvent;
+import events.inbound.SetQuorumEvent;
+import model.Quorum;
+
 
 public class PickupRulesSP extends PickupRules 
-implements Rules{
+{
 
 	
-	/**
+	
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
 		return new SetQuorumCmd(new Quorum(1, 1));
 	}
-	**/
+	
 	
 	@Override
 	public Move apply(InitGameEvent e, Table table, Player player){
