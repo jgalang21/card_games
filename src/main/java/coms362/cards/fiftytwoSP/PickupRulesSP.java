@@ -11,6 +11,7 @@ import coms362.cards.fiftytwo.PickupRules;
 import coms362.cards.fiftytwo.SetQuorumCmd;
 import events.inbound.ConnectEvent;
 import events.inbound.InitGameEvent;
+import events.inbound.NewPartyEvent;
 import events.inbound.SetQuorumEvent;
 import model.Quorum;
 
@@ -18,7 +19,13 @@ import model.Quorum;
 public class PickupRulesSP extends PickupRules 
 {
 
-	
+	@Override
+	public Move apply(NewPartyEvent e, Table table, Player player){
+		if (e.getRole() == PartyRole.host){
+			return new CreatePlayerCmd( e.getPosition(), e.getSocketId());
+		}
+		return new DropEventCmd();
+	}
 	
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
@@ -28,8 +35,10 @@ public class PickupRulesSP extends PickupRules
 	
 	@Override
 	public Move apply(InitGameEvent e, Table table, Player player){
+	
 		Player p1 = table.getPlayer((Integer) 1);
-	//	Player p2 = table.getPlayer((Integer) 2); 
+	
+	//	Player p2 = table.getPlayer((Integer) 2);  this doesn't seem right and its buggy
 		
 		return new PickupInitCmdSP(table.getPlayerMap());
 	}

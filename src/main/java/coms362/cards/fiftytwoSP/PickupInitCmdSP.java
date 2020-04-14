@@ -21,7 +21,7 @@ public class PickupInitCmdSP extends PickupInitCmd {
 	
 	public PickupInitCmdSP(Map<Integer, Player> players) {
 		super(players);
-		
+		this.players = players;
 		// TODO Auto-generated constructor stub
 	}
 	

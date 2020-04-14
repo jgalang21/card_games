@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import coms362.cards.abstractcomp.Player;
+import coms362.cards.abstractcomp.Table;
 import model.PlayerFactory;
 import model.Quorum;
 import model.TableBase;
 
-public class TableBaseSP extends TableBase {
+public class TableBaseSP extends TableBase implements Table {
 
-	private Quorum quorum =  new Quorum(1, 1); 
-	private Map<Integer, Player> players = new HashMap<Integer, Player>();
+	private Quorum quorum; 
+	//private Map<Integer, Player> players = new HashMap<Integer, Player>();
 	public TableBaseSP(PlayerFactory pFactory) {
 		super(pFactory);
 		// TODO Auto-generated constructor stub
