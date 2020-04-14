@@ -10,6 +10,7 @@ import coms362.cards.fiftytwo.P52GameFactory;
 import coms362.cards.fiftytwo.PickupRules;
 import coms362.cards.streams.RemoteTableGateway;
 import model.PlayerFactory;
+import model.TableBase;
 
 public class SP52PUFactory extends P52GameFactory {
 
@@ -18,4 +19,8 @@ public class SP52PUFactory extends P52GameFactory {
 		return new PickupRulesSP();
 	}
 
+	@Override
+	public Table createTable() {
+		return new TableBaseSP(this);
+	}
 }
