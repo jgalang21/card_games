@@ -11,15 +11,18 @@ import model.TableBase;
 
 public class TableBaseSP extends TableBase implements Table {
 
-	private Quorum quorum; 
-	//private Map<Integer, Player> players = new HashMap<Integer, Player>();
 	public TableBaseSP(PlayerFactory pFactory) {
 		super(pFactory);
 		// TODO Auto-generated constructor stub
 	}
 
+
+	//private Map<Integer, Player> players = new HashMap<Integer, Player>();
+
+
 	@Override
 	public boolean partiesReady() {
+		
 		return quorum != null && quorum.meets(1);
 	}
 

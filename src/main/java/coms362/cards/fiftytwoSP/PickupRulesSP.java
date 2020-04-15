@@ -21,10 +21,9 @@ public class PickupRulesSP extends PickupRules
 
 	@Override
 	public Move apply(NewPartyEvent e, Table table, Player player){
-		if (e.getRole() == PartyRole.host){
+	
 			return new CreatePlayerCmd( e.getPosition(), e.getSocketId());
-		}
-		return new DropEventCmd();
+	
 	}
 	
 	@Override
@@ -56,5 +55,7 @@ public class PickupRulesSP extends PickupRules
 		System.out.println("PickupRules connectHandler rval = "+rval);
 		return rval;
 	}
+	
+	
 	
 }
