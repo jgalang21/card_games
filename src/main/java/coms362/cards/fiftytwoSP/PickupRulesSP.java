@@ -17,14 +17,30 @@ import events.inbound.SetQuorumEvent;
 import model.Quorum;
 
 
+/**
+ * This class simply just creates new pickup rules for the single player game.
+ * 
+ * @author Jeremy and Madison
+ *
+ */
 public class PickupRulesSP extends PickupRules 
 {
+	
+	/**
+	 * This defaults to creating a new Quorum object with 1,1
+	 */
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
 		return new SetQuorumCmd(new Quorum(1, 1));
 	}
 	
 	
+	/**
+	 * Create a new PickupInitCmd, with the singleplayer title.
+	 * 
+	 * Pickupinitcmd now takes in a string, Robert mentioned to do this
+	 * in class (4/15)
+	 */
 	@Override
 	public Move apply(InitGameEvent e, Table table, Player player){
 	

@@ -12,15 +12,22 @@ import coms362.cards.streams.RemoteTableGateway;
 import model.PlayerFactory;
 import model.TableBase;
 
+
+/**
+ * This class simply extends the 52PU Gamefactory, the only difference is that it uses single player pickup rules.
+ * 
+ * @author Jeremy and Madison
+ *
+ */
 public class SP52PUFactory extends P52GameFactory {
 
+	
+	/**
+	 * Create a new set of single player pickup rules. 
+	 */
 	@Override
 	public Rules createRules() {
 		return new PickupRulesSP();
 	}
 
-	@Override
-	public Table createTable() {
-		return new TableBase(this);
-	}
 }
