@@ -5,6 +5,7 @@ import java.util.List;
 
 import coms362.cards.abstractcomp.GameFactory;
 import coms362.cards.fiftytwo.P52GameFactory;
+import coms362.cards.fiftytwoSP.SP52PUFactory;
 
 
 public class GameFactoryFactory {
@@ -13,7 +14,13 @@ public class GameFactoryFactory {
 	List<String> supported = Arrays.asList(gameIds);
 	
 	public GameFactory getGameFactory(String selector){
-		return new P52GameFactory();
+		
+		if(selector.equals("PU52MP")) {
+			return new P52GameFactory();
+		}
+		else {
+			return new SP52PUFactory();
+		}
 	}
 
 	public boolean isValidSelection(String gameId) {

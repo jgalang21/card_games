@@ -51,7 +51,7 @@ public class TestDealInput {
 		
 		// initialize the local model for Pu52 match
 		Table table = new TableBase(new P52GameFactory());
-		Move move = new PickupInitCmd(players );
+		Move move = new PickupInitCmd(players, "52 Card Pickup" );
 		move.apply(table);
 		Rules rules = new PickupRules();
 		

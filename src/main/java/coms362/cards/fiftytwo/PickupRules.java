@@ -49,7 +49,7 @@ implements Rules, RulesDispatch {
 		Player p1 = table.getPlayer((Integer) 1);
 		Player p2 = table.getPlayer((Integer) 2); 
 		
-		return new PickupInitCmd(table.getPlayerMap());
+		return new PickupInitCmd(table.getPlayerMap(), "52 Card Pickup");
 	}
 	
 	public Move apply(NewPartyEvent e, Table table, Player player){
