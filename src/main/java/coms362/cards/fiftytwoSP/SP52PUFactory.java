@@ -21,6 +21,6 @@ public class SP52PUFactory extends P52GameFactory {
 
 	@Override
 	public Table createTable() {
-		return new TableBaseSP(this);
+		return new TableBase(this);
 	}
 }

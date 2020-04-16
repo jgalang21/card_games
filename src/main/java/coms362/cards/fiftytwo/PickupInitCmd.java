@@ -20,10 +20,11 @@ import model.Pile;
 
 public class PickupInitCmd implements Move {
 	Map<Integer, Player> players;
-	String title = "52 Card Pickup";
+	String title;
 	
-	public PickupInitCmd(Map<Integer, Player> players) {
+	public PickupInitCmd(Map<Integer, Player> players, String title) {
 		this.players = players;
+		this.title = title;
 	}
 
 	public void apply(Table table){
@@ -50,7 +51,7 @@ public class PickupInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
-		view.send(new SetGameTitleRemote("52 Card Pickup"));
+		view.send(new SetGameTitleRemote(title));
 
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
