@@ -14,6 +14,8 @@ We now support setting a timer in the browser that returns a (client-specified) 
 The Timer support includes a model class (Timer), a remoteEvent command (SetTimerRemote) and an inbound event (TimerEvent) to simplify use when only one timer is ever active. 
 
 registerEvents() in the PickupRules has been enhanced to register TimerEvent for unmarshalling. The rulesDispatch hierarchy has also been modified to support dispatch of the new event. 
+
+A modified version of pickup which uses the timer to block play for five seconds when the jack of clubs is "picked up." is available on branch "timer". If you are considering using the timer, we suggest you fetch and explore this branch. (If your working tree is committed, you can fetch and switch to a branch without changing any of your working code.) 
   
 ***
 Prior releases have been using incomplete or partially implemented RemoteEvents extracted from an early prototype. We have completed several of the remote events, deprecated one, and added some new events to give better control how cards are inserted into a Pile or Deck. 
@@ -31,9 +33,16 @@ Other modified classes:
 - some obsolete code has been removed from  the InitGameEvent handler in PickupRules. 
 
 ===
+Testing: 
+
+unit tests pass,
+manual testing of PU52 confirms single player startup. 
+manual testing of PU52MP with 1, 2, and 4 players confirms correct play in each configuration. 
+
+===
 
 You can get a detailed view of all changes from eclipse  BEFORE YOU MERGE by right-clicking on the project and selecting compareWith > Branch, Tag, or Reference > then in the window that opens select remote tracking > origin/master. This is your MOST RELIABLE and fastest way to inventory prospective changes. Since you can browse the changes in any order and see them side by side, it is the preferred means of making sense of a new "push". 
 
-A similar view is available from the Gitlab "History" tab. Here you can walk through commits one by one. Commits are accompanied by a commit comment that usually identifies the purpose of the commit. When dealing with a large codebase, comments are generally not "browsable" in a useful way and often not complete. The source code control system generally offers a much 
-more productive means of identifing and understanding changes.
+A similar view is available from the Gitlab "History" tab. Here you can walk through commits one by one. Commits are accompanied by a commit comment that usually identifies the purpose of the commit. When dealing with a large codebase, comments are generally not "browse-able" in a useful way and often not complete. The source code control system generally offers a much 
+more productive means of identifying and understanding changes.
 
