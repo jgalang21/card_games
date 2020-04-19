@@ -10,6 +10,7 @@ import events.inbound.InitGameEvent;
 import events.inbound.NewPartyEvent;
 import events.inbound.SelectGame;
 import events.inbound.SetQuorumEvent;
+import events.inbound.TimerEvent;
 
 public class RulesDispatchBase implements RulesDispatch {
 
@@ -57,5 +58,10 @@ public class RulesDispatchBase implements RulesDispatch {
 	public Move apply(SetQuorumEvent e, Table table, Player player) {
 		throw new RuntimeException("Event not supported " + e.toString());
 	}
+	
+	@Override
+    public Move apply(TimerEvent e, Table table, Player player) {
+        throw new RuntimeException("Event not supported " + e.toString());
+    }
 
 }

@@ -9,6 +9,7 @@ import events.inbound.InitGameEvent;
 import events.inbound.NewPartyEvent;
 import events.inbound.SelectGame;
 import events.inbound.SetQuorumEvent;
+import events.inbound.TimerEvent;
 
 /**
  * Part of the double dispatch mechanism we use to recover concrete
@@ -51,5 +52,7 @@ public interface RulesDispatch {
 	public Move apply(ConnectEvent e, Table table, Player player);
 
 	public Move apply(SetQuorumEvent e, Table table, Player player);
+	
+	public Move apply(TimerEvent e, Table table, Player player);
 	
 }

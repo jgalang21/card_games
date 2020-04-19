@@ -21,13 +21,22 @@ import model.Pile;
 public class PickupInitCmd implements Move {
 	Map<Integer, Player> players;
 	String title = "52 Card Pickup";
-	
+	Pile discardPile;
+    Pile tidyPile;
+
 	public PickupInitCmd(Map<Integer, Player> players) {
 		this.players = players;
+		discardPile = new Pile("discardPile", new Location(500,359));
+        tidyPile = new Pile("tidyPile", new Location(500,359));
+	}
+	
+	public PickupInitCmd(Map<Integer, Player> players, String title) {
+		this(players);
+		this.title = title;
 	}
 
+
 	public void apply(Table table){
-		Pile discard = new Pile("discardPile", new Location(500,359));
 		Random random = table.getRandom();
         try {
             for (String suit : Card.suits) {
@@ -39,10 +48,11 @@ public class PickupInitCmd implements Move {
                     card.setY(random.nextInt(200) + 100);
                     card.setRotate(random.nextInt(360));
                     card.setFaceUp(random.nextBoolean());
-                    discard.cards.put(card.getId(), card);
+                    discardPile.cards.put(card.getId(), card);
                 }
             }
-            table.addPile( discard);
+            table.addPile(discardPile);
+            table.addPile(tidyPile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,14 +60,15 @@ public class PickupInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
-		view.send(new SetGameTitleRemote("52 Card Pickup"));
+		view.send(new SetGameTitleRemote(title));
 
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 
-		view.send(new CreatePile(new Pile("discardPile", new Location(500,359))));
+		view.send(new CreatePile(discardPile));
+		view.send(new CreatePile(tidyPile));
 		String id = ""; 
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 

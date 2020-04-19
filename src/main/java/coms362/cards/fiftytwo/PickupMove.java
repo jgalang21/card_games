@@ -6,8 +6,8 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
-import events.remote.AddToPileRemote;
 import events.remote.HideCardRemote;
+import events.remote.InsertAtPileTopRemote;
 import events.remote.RemoveFromPileRemote;
 import events.remote.ShowCardRemote;
 import events.remote.ShowPlayerScore;
@@ -25,19 +25,15 @@ public class PickupMove implements Move {
 	
 	public void apply(Table table){
 		table.removeFromPile("discardPile", c);
-		table.addToPile("Tidy", c);
+		table.addToPile("tidyPile", c);
 		table.addToScore(p, 1);
 	}
 	
 	public void apply(ViewFacade view){
-
 		view.send(new HideCardRemote(c));
-		view.send(new RemoveFromPileRemote("Random", c));
-		view.send(new AddToPileRemote("Tidy", c));
+		view.send(new RemoveFromPileRemote("discardPile", c));
+		view.send(new InsertAtPileTopRemote("tidyPile", c));
 		view.send(new ShowCardRemote(c));
 		view.send(new ShowPlayerScore(p, null));
-
-	}
-	
-	
+	}	
 }
