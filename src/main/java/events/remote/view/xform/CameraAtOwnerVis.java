@@ -5,6 +5,15 @@ import coms362.cards.abstractcomp.View;
 import coms362.events.remote.view.attributes.ElVisibility;
 import events.remote.SetBottomPlayerTextRemote;
 
+/**
+ * This decorator will make an element visible only when it
+ * belongs to the player who is "in front of" the camera, i.e., 
+ * when that player is positioned at the bottom of the 
+ * browser presentation. 
+ * 
+ * @author Robert Ward
+ *
+ */
 public class CameraAtOwnerVis extends AbstractREWrapper {
  
 	RemoteEvent child = null; 

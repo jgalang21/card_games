@@ -5,6 +5,16 @@ import coms362.cards.abstractcomp.View;
 import coms362.cards.streams.Marshalls;
 import model.Location;
 
+/**
+ * 
+ * This wrapper adds a table-relative orientation behavior to the 
+ * element. It computes the angle from the element's position to the 
+ * center of the table and sets the element's rotation attribute 
+ * to that angle. 
+ * 
+ * @author robert Ward
+ *
+ */
 public class OrientToTableCenter extends AbstractREWrapper {
 
 	RemoteEvent child = null; 

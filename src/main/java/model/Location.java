@@ -1,7 +1,9 @@
 package model;
 
+import coms362.cards.coordinates.DevicePoint;
+
 /**
- * A Table-relative position in the View. 
+ * A Table-relative position in device coordinates. 
  * 
  * All position information in move objects should 
  * be encoded in this type to be compatible with future view operations. 
@@ -21,6 +23,11 @@ public class Location {
 	public Location(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Location(DevicePoint dp){
+		x = dp.x;
+		y = dp.y;
 	}
 	
 	public int getX(){

@@ -20,6 +20,7 @@ import events.remote.SetGameTitleRemote;
 import events.remote.SetupTable;
 import events.remote.UpdateRemote;
 import events.remote.view.xform.CameraAtOwnerVis;
+import events.remote.view.xform.OrientToPlayer;
 import events.remote.view.xform.OrientToTableCenter;
 import events.remote.view.xform.PlayerPrivate;
 import events.remote.view.xform.TableRelativePos;

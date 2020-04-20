@@ -2,6 +2,9 @@ package events.remote.view.xform;
 
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.abstractcomp.View;
+import coms362.cards.coordinates.DevicePoint;
+import coms362.cards.coordinates.Point;
+import coms362.cards.coordinates.TablePoint;
 import coms362.cards.streams.Marshalls;
 import model.Location;
 
@@ -19,7 +22,7 @@ public class TableRelativePos extends AbstractREWrapper {
 		DisplayAttrs attrs = child.personalize(view);
 		int cam = view.getCameraPosition();
 		Location adjPos = rotateForCamera(cam, attrs.pos );
-		attrs.pos = adjPos;
+		attrs.pos = adjPos;		
 		return attrs;
 	}
 
@@ -30,6 +33,7 @@ public class TableRelativePos extends AbstractREWrapper {
 	
 
 	private Location rotateForCamera(int cam, Location pos){
+		
 		final int max = Table.kWidth; // size of table. 
 		Location normPos = pos.translate(-max/2,-max/2);
 		Location rotNorm = null; 
@@ -47,6 +51,7 @@ public class TableRelativePos extends AbstractREWrapper {
 			break;
 		}
 		return rotNorm.translate(max/2,max/2);
+
 	}
 	
 	

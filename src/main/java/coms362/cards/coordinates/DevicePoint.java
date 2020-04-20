@@ -1,5 +1,7 @@
 package coms362.cards.coordinates;
 
+import model.Location;
+
 /**
  * 
  * A point in browser device coordinates. 
@@ -20,6 +22,11 @@ public class DevicePoint  {
 	public DevicePoint(int dpx, int dpy) {
 		x = dpx;
 		y = dpy;
+	}
+	
+	public DevicePoint(Location loc){
+		x=loc.getX();
+		y=loc.getY();
 	}
 
 	public DevicePoint(TablePoint tPos) {

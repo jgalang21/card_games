@@ -31,7 +31,8 @@ public class TablePoint {
 	}
 	
 	public TablePoint(DevicePoint dPoint){
-		this(new Point(dPoint));
+		this(dPoint.x - ViewPort.kMaxX/2,
+				(ViewPort.kMaxY - dPoint.y) - ViewPort.kMaxY/2);
 	}
 	
 	public DevicePoint projectForCamera(int pos){
@@ -39,8 +40,6 @@ public class TablePoint {
 		pVal = pVal.rotateToPos(pos);
 		return pVal.getDeviceLoc();
 	}
-	
-	
 	
 	/**
 	 * 
