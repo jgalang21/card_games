@@ -31,17 +31,17 @@ implements RemoteEvent, Marshalls{
     	String rval = 	String.format("card1 = allCards[%d];\n"
 			+ "card1.moveTo(%d, %d, 1, null);\n"
 			+ "card1.rotate(%d);\n"
-			+ "card1.faceUp = %b;\n"
+			+ "card1.%s;\n"
 			+ "card1.id = %d;\n"
 			+ "card1.el.click(cardMouseEvent);\n",
 			c.getId(),
 			attrs.pos.getX(), attrs.pos.getY(),
 			attrs.rot,
-			(attrs.face == CardShow.up),
+			(attrs.face == CardShow.up)? "showCard()" : "hideCard()",
 			c.getId(),
 			c.getId()
 		);
-    	System.out.println("UpdateRemote.marshall(attrs) "+rval);
+    	System.out.format("UpdateRemote.marshall(attrs) %d%s: %s%n", c.getNumber(), c.getSuit(), rval);
     	return rval;
     }
     

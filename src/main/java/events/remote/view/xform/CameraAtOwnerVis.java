@@ -9,7 +9,7 @@ public class CameraAtOwnerVis extends AbstractREWrapper {
  
 	RemoteEvent child = null; 
 
-	public CameraAtOwnerVis( RemoteEvent child ) {
+	public CameraAtOwnerVis( RemoteEvent child) {
 		super(child);
 		this.child = child;
 	}

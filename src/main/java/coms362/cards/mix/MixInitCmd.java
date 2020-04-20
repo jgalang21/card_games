@@ -21,6 +21,7 @@ import events.remote.SetupTable;
 import events.remote.UpdateRemote;
 import events.remote.view.xform.CameraAtOwnerVis;
 import events.remote.view.xform.OrientToTableCenter;
+import events.remote.view.xform.PlayerPrivate;
 import events.remote.view.xform.TableRelativePos;
 import model.Card;
 import model.Location;
@@ -160,7 +161,7 @@ public class MixInitCmd implements Move {
 			for (Card c : hCards) {
 				System.out.println("HandCards= "+hCards.toString());
 				view.send(new CreateRemote(c));
-				view.send( new TableRelativePos(new UpdateRemote(c)));
+				view.send( new PlayerPrivate(p, new TableRelativePos(new UpdateRemote(c))));
 			}
 		}
 				
