@@ -41,15 +41,6 @@ public class TestJeremy
 		SetQuorumCmd setQ = new SetQuorumCmd(quo);
 		
 		assertEquals(check, setQ);
-		
-		
-		
-
 	}
-
-	
-
-	
-
 }
 
