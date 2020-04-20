@@ -10,6 +10,8 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.coordinates.DevicePoint;
+import coms362.cards.coordinates.TablePoint;
 import coms362.cards.fiftytwo.DealButton;
 import events.remote.CreateButtonRemote;
 import events.remote.CreateRemote;
@@ -33,12 +35,17 @@ public class MixInitCmd implements Move {
 	Pile markers = null;
 	Pile pointers = null; 
 	Pile[] hands = new Pile[4];
+	private TablePoint handPattern[] = new TablePoint[3];
 	
 	public MixInitCmd(Map<Integer, Player> players, String title ) {
 		// TODO: register piles with table. 
 		this.players = players;
 		orderedP = new ArrayList<Player>(players.values());
 		orderedP.sort(new OnPlayerNum<Player>());
+		handPattern[0] = new TablePoint(-25, -275);
+		handPattern[1] = new TablePoint( 0, -260);
+		handPattern[2] = new TablePoint(25, -275);
+		
 		Location markerPos = new Location(100,50);
 		markers = new Pile("markers", markerPos );
 		initCards(markers, "h", markerPos);
@@ -51,20 +58,24 @@ public class MixInitCmd implements Move {
 		
 	}
 	
+	
 	private Pile initHand(int p) {
-		Pile hand = new Pile("hand"+p, new Location(180,550));
-		int rot = -15;
-		int x = 180; 
-		int y = 550; 
-		for (int r = 11; r < 14; r ++ ){ //r = rank
+		Pile hand = new Pile("hand"+p, new Location(0,0));
+ 
+		for ( int i = 0; i < 3; i++ ){
 			Card c = new Card();
-			c.setNumber(r);
+			c.setNumber(11+i);
 			c.setSuit(Card.suits[p-1]);
-			c.setRotate( rot );
-			rot += 15;
-			Location loc = new Location(x,(r == 12) ? y=+15: y  );
-			x += 15;
-			c  = setQuadrantRelative(c, p, loc );
+//			c.setRotate( rot );
+//			rot += 15;
+			TablePoint tPos = handPattern[i].copyToPos(p);
+			System.err.format("initHand.tp: pos=%d, i=%d, (%d,%d)%n",p, i, tPos.x, tPos.y );
+			DevicePoint dPos = new DevicePoint(tPos);
+			System.err.format("initHand.dp: pos=%d, i=%d, (%d,%d)%n",p, i, dPos.x, dPos.y );
+			
+			c.setPosition(dPos);
+			System.err.format("intHand.c: pos=%d id=%d, %s%d, (%d,%d)%n", p,
+					c.getId(), c.getSuit(), c.getNumber(), c.getX(), c.getY());
 			hand.addCard(c);
 		}
 		return hand;
@@ -149,7 +160,7 @@ public class MixInitCmd implements Move {
 			for (Card c : hCards) {
 				System.out.println("HandCards= "+hCards.toString());
 				view.send(new CreateRemote(c));
-				view.send(new TableRelativePos( new UpdateRemote(c)));
+				view.send( new TableRelativePos(new UpdateRemote(c)));
 			}
 		}
 				

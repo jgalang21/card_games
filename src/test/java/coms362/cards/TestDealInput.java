@@ -62,8 +62,7 @@ public class TestDealInput {
 		long sValue = sig.getValue();
 		System.out.println(sValue);
 		
-		assertEquals(expectedSig, sValue);
-		
+		assertEquals(expectedSig, sValue);		
 	}
 
 }

@@ -1,5 +1,8 @@
 package model;
 
+import coms362.cards.coordinates.DevicePoint;
+import coms362.cards.coordinates.TablePoint;
+
 /**
  * @author Robert Ward
  *
@@ -72,6 +75,11 @@ public class Card {
     public void setPosition(Location loc){
     	x = loc.getX();
     	y = loc.getY();
+    }
+    
+    public void setPosition(DevicePoint loc){
+    	x = loc.x;
+    	y = loc.y;
     }
     
     @Override
