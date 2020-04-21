@@ -2,7 +2,6 @@ package events.remote.view.xform;
 
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.abstractcomp.View;
-import coms362.cards.streams.Marshalls;
 import model.Location;
 
 /**

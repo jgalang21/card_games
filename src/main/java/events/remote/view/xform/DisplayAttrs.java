@@ -3,7 +3,6 @@ package events.remote.view.xform;
 import coms362.cards.abstractcomp.Player;
 import coms362.events.remote.view.attributes.CardShow;
 import coms362.events.remote.view.attributes.ElVisibility;
-import coms362.events.remote.view.attributes.Orientation;
 import model.Location;
 
 public class DisplayAttrs {

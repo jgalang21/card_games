@@ -21,6 +21,7 @@ import events.remote.SetupTable;
 import events.remote.UpdateRemote;
 import events.remote.view.xform.CameraAtOwnerVis;
 import events.remote.view.xform.OrientToPlayer;
+import events.remote.view.xform.OrientToTable;
 import events.remote.view.xform.OrientToTableCenter;
 import events.remote.view.xform.PlayerPrivate;
 import events.remote.view.xform.TableRelativePos;
@@ -41,9 +42,12 @@ public class MixInitCmd implements Move {
 	
 	public MixInitCmd(Map<Integer, Player> players, String title ) {
 		// TODO: register piles with table. 
+		// We need the players in position order so that we 
+		// process the position and rank information easily. 
 		this.players = players;
 		orderedP = new ArrayList<Player>(players.values());
 		orderedP.sort(new OnPlayerNum<Player>());
+		// position the cards in a little stile. 
 		handPattern[0] = new TablePoint(-25, -275);
 		handPattern[1] = new TablePoint( 0, -260);
 		handPattern[2] = new TablePoint(25, -275);
@@ -68,16 +72,9 @@ public class MixInitCmd implements Move {
 			Card c = new Card();
 			c.setNumber(11+i);
 			c.setSuit(Card.suits[p-1]);
-//			c.setRotate( rot );
-//			rot += 15;
 			TablePoint tPos = handPattern[i].copyToPos(p);
-			System.err.format("initHand.tp: pos=%d, i=%d, (%d,%d)%n",p, i, tPos.x, tPos.y );
 			DevicePoint dPos = new DevicePoint(tPos);
-			System.err.format("initHand.dp: pos=%d, i=%d, (%d,%d)%n",p, i, dPos.x, dPos.y );
-			
 			c.setPosition(dPos);
-			System.err.format("intHand.c: pos=%d id=%d, %s%d, (%d,%d)%n", p,
-					c.getId(), c.getSuit(), c.getNumber(), c.getX(), c.getY());
 			hand.addCard(c);
 		}
 		return hand;
@@ -137,20 +134,21 @@ public class MixInitCmd implements Move {
 		view.send(new CreateButtonRemote(dealButton));
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
-			view.send(new CameraAtOwnerVis(new SetBottomPlayerTextRemote(role, p)));
+			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 		System.out.println("markers = " + markers.cards.toString());
 		System.out.println("pointers = " + pointers.cards.toString());
 		for (Player p: orderedP) {
 			Integer index = (Integer) p.getPlayerNum();
 			view.send(new CreateRemote(markers.cards.get(index)));
-			view.send(new OrientToTableCenter(new TableRelativePos(new UpdateRemote(markers.cards.get(index)))));
+			view.send(new UpdateRemote(markers.cards.get(index)));
 		}	
 		for (Card c: pointers.cards.values()){
 			System.out.println("MixInitCmd pointers "+c.toString());
 			Player p = players.get((Integer) c.getNumber());
+			c.setRotate(22);
 			view.send(new CreateRemote(c));
-			view.send(new TableRelativePos( new UpdateRemote(c)));
+			view.send(new UpdateRemote(c));
 		}
 		for (Player p: orderedP ){
 			int currentPos = p.getPlayerNum();
@@ -162,7 +160,7 @@ public class MixInitCmd implements Move {
 			for (Card c : hCards) {
 				System.out.println("HandCards= "+hCards.toString());
 				view.send(new CreateRemote(c));
-				view.send( new PlayerPrivate(p, new TableRelativePos(new UpdateRemote(c))));
+				view.send(new UpdateRemote(c));
 			}
 		}
 				

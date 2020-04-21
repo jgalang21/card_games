@@ -2,11 +2,21 @@ package events.remote.view.xform;
 
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.abstractcomp.View;
-import coms362.cards.coordinates.DevicePoint;
-import coms362.cards.coordinates.Point;
-import coms362.cards.coordinates.TablePoint;
-import coms362.cards.streams.Marshalls;
 import model.Location;
+
+/**
+ * A RemoteEvent wrapper that adjusts the position (not orientation) of
+ * its child (usually a Card) thus preserving the cards apparant location relative to 
+ * the table. As the camera moves (think of different player screens) from player position to player position,
+ * a card managed by a RemoteEvent wrapped with this class will appear to rotate with the table. 
+ * 
+ * You can use this class, but you not as a pattern for how to build such a wrapper. 
+ * 
+ * @author Robert Ward
+ *
+ */
+
+// TODO: rewrite using DevicePoint, TablePoint, and abstract Point 
 
 public class TableRelativePos extends AbstractREWrapper {
 
@@ -31,7 +41,6 @@ public class TableRelativePos extends AbstractREWrapper {
 		return "TableRelativePos Wrapping "+super.getClass().getSimpleName(); 
 	}
 	
-
 	private Location rotateForCamera(int cam, Location pos){
 		
 		final int max = Table.kWidth; // size of table. 
