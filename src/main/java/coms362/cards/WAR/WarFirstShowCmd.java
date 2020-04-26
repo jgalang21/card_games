@@ -25,8 +25,8 @@ public class WarFirstShowCmd implements Move{
 		table1.removeFromPile("p1", c);
 		
 		
-		c.setX(50);
-		c.setY(50);
+		
+		
 		
 	}
 

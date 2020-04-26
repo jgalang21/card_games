@@ -10,6 +10,7 @@ import coms362.cards.app.ViewFacade;
 import coms362.cards.fiftytwo.DealButton;
 import coms362.cards.fiftytwo.HideButtonRemote;
 import events.remote.CreateRemote;
+import events.remote.HideCardRemote;
 import events.remote.UpdateRemote;
 import model.Card;
 import model.Pile;
@@ -38,7 +39,8 @@ public class WarDealCmd implements Move {
 			views.send(new HideButtonRemote(remoteId));
 			Pile p1 = table.getPile("p1");
 			Pile p2 = table.getPile("p2");
-
+			
+			
 			if (p1 == null || p2 == null) {
 				return;
 			}
@@ -46,6 +48,7 @@ public class WarDealCmd implements Move {
             	String outVal="";
             	
             	views.send(new CreateRemote(c));
+            	views.send(new HideCardRemote(c));
             	views.send(new UpdateRemote(c));
                 System.out.println(outVal);	            
 	        }
@@ -54,6 +57,7 @@ public class WarDealCmd implements Move {
             	String outVal2="";
             	
             	views.send(new CreateRemote(c2));
+            	views.send(new HideCardRemote(c2));
             	views.send(new UpdateRemote(c2));
                 System.out.println(outVal2);	            
 	        }
