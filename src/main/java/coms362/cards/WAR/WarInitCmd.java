@@ -24,9 +24,11 @@ public class WarInitCmd implements Move {
 	
 	//player 1's pile
 	private Pile p1 = new Pile("p1", new Location(300, 510));
+	private Pile p1Show = new Pile("p1Show", new Location(300, 400));
 	
 	//player 2's pile
 	private Pile p2 = new Pile("p2", new Location(300, 100));
+	private Pile p2Show = new Pile("p2Show", new Location(300, 200));
 	
 	
 	public WarInitCmd(Map<Integer, Player> players, String title) {
@@ -68,6 +70,8 @@ public class WarInitCmd implements Move {
 			
             table.addPile(p1);
             table.addPile(p2);
+            table.addPile(p1Show);
+            table.addPile(p2Show);
             //i dont think these are shuffled though, but may not be necessary
 		}
 		catch (Exception e) {
@@ -89,6 +93,8 @@ public class WarInitCmd implements Move {
 		
 		view.send(new CreatePile(p1));
 		view.send(new CreatePile(p2));
+		view.send(new CreatePile(p1Show));
+		view.send(new CreatePile(p2Show));
 		String id = ""; 
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 

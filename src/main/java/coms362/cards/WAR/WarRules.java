@@ -44,10 +44,10 @@ public class WarRules extends PickupRules {
 		//somethings wrong here
 		Card c = table.getPile("p1").getCard(e.getId());
 		Card c2 = table.getPile("p2").getCard(e.getId());
-		if ( c == null || c2 == null){
+		if ( c == null && c2 == null){
 			return new DropEventCmd();
 		}
-		return new PickupMove(c, player);		
+		return new WarFirstShowCmd(c, player);		
 	}
 	
 }
