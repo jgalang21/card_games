@@ -14,13 +14,14 @@ public class CreatePile implements Marshalls {
 	
 	public String marshall() {
 		Location loc = p.getLocation();
-		return String.format(
-            "%s = new cards.Deck({faceUp:%b, x:%d, y:%d});",
-			p.name,
-			p.visible,
-			loc.getX(),
-			loc.getY()
-		);
+		return String.format("%s = new cards.Deck({faceUp:%b, x:%d, y:%d});", p.name, p.getFaceUp(), loc.getX(), loc.getY());
+//		return String.format(
+//            "%s = new cards.Deck({faceUp:%b, x:%d, y:%d});",
+//			p.name,
+//			p.visible,
+//			loc.getX(),
+//			loc.getY()
+//		);
 			
 	}
 

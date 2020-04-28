@@ -12,7 +12,7 @@ import java.util.Map;
 public class Pile {
 
 	public String name;
-	public String visible;
+	//public String visible;
 	public Map<Integer, Card> cards = new HashMap<Integer, Card>();
 	private Location loc = new Location(0,0);
 	
@@ -35,5 +35,13 @@ public class Pile {
 
 	public String getName() {
 		return name;
+	}
+	
+	private boolean faceUp;
+	public void setFaceUp(boolean faceUp) {
+	   this.faceUp = faceUp;
+	}
+	public boolean getFaceUp() {
+	   return faceUp;
 	}
 }

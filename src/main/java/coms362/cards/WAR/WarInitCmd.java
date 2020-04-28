@@ -72,6 +72,8 @@ public class WarInitCmd implements Move {
             table.addPile(p2);
             table.addPile(p1Show);
             table.addPile(p2Show);
+            p1Show.setFaceUp(true);
+            p2Show.setFaceUp(true);
             //not shuffled yet
 		}
 		catch (Exception e) {
