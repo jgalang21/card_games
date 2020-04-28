@@ -62,13 +62,7 @@ public class WarDealCmd implements Move {
                 System.out.println(outVal2);	            
 	        }
 			
-//	            
-//			for (Card c : local.cards.values()) {
-//	            	String outVal="";
-//	            	views.send(new CreateRemote(c));
-//	            	views.send(new UpdateRemote(c));
-//	                System.out.println(outVal);	            
-//		        }
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

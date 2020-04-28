@@ -37,7 +37,11 @@ public class WarFirstShowCmd implements Move{
 		views.send(new RemoveFromPileRemote("p1", c));
 		views.send(new InsertAtPileTopRemote("p1Show", c));
 		views.send(new ShowCardRemote(c));
-		views.send(new ShowPlayerScore(p, null));
+		
+		
+		
+		
+		
 	}
 
 }

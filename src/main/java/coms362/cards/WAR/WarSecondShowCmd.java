@@ -4,7 +4,11 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import events.remote.HideCardRemote;
+import events.remote.InsertAtPileTopRemote;
 import events.remote.RemoveFromPileRemote;
+import events.remote.ShowCardRemote;
+import events.remote.ShowPlayerScore;
 import events.remote.UpdateRemote;
 import model.Card;
 
@@ -21,19 +25,22 @@ public class WarSecondShowCmd implements Move{
 	
 	@Override
 	public void apply(Table table) {
-		WarTable table1 = (WarTable) table;
-		table1.removeFromPile("p2", c);
 		
-		
-		c.setX(100);
-		c.setY(100);
+		table.removeFromPile("p2", c);
+		table.addToPile("p2Show", c);
 		
 	}
 
 	@Override
 	public void apply(ViewFacade views) {
+		views.send(new HideCardRemote(c));
 		views.send(new RemoveFromPileRemote("p2", c));
-		views.send(new UpdateRemote(c));
+		views.send(new InsertAtPileTopRemote("p2Show", c));
+		views.send(new ShowCardRemote(c));
+		
+		
+		
+		
 	}
 
 }
