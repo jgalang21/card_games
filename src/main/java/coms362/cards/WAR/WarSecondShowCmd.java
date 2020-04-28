@@ -5,6 +5,7 @@ import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
 import events.remote.HideCardRemote;
+import events.remote.InsertAtPileBottomRemote;
 import events.remote.InsertAtPileTopRemote;
 import events.remote.RemoveFromPileRemote;
 import events.remote.ShowCardRemote;
@@ -33,11 +34,12 @@ public class WarSecondShowCmd implements Move{
 
 	@Override
 	public void apply(ViewFacade views) {
-		views.send(new HideCardRemote(c));
+	
 		views.send(new RemoveFromPileRemote("p2", c));
-		views.send(new InsertAtPileTopRemote("p2Show", c));
-		views.send(new ShowCardRemote(c));
+		views.send(new InsertAtPileBottomRemote("p2Show", c));
 		
+		//views.send(new ShowCardRemote(c));
+		//views.send(new UpdateRemote(c));
 		
 		
 		

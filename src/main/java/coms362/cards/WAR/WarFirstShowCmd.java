@@ -4,7 +4,9 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import events.remote.CreateRemote;
 import events.remote.HideCardRemote;
+import events.remote.InsertAtPileBottomRemote;
 import events.remote.InsertAtPileTopRemote;
 import events.remote.RemoveFromPileRemote;
 import events.remote.ShowCardRemote;
@@ -29,16 +31,17 @@ public class WarFirstShowCmd implements Move{
 		table.removeFromPile("p1", c);
 		table.addToPile("p1Show", c);
 		
+	
+		
 	}
 
 	@Override
 	public void apply(ViewFacade views) {
+		
 		views.send(new HideCardRemote(c));
 		views.send(new RemoveFromPileRemote("p1", c));
-		views.send(new InsertAtPileTopRemote("p1Show", c));
+		views.send(new InsertAtPileBottomRemote("p1Show", c)); //inverted
 		views.send(new ShowCardRemote(c));
-		
-		
 		
 		
 		

@@ -72,7 +72,7 @@ public class WarInitCmd implements Move {
             table.addPile(p2);
             table.addPile(p1Show);
             table.addPile(p2Show);
-            //i dont think these are shuffled though, but may not be necessary
+            //not shuffled yet
 		}
 		catch (Exception e) {
 			e.printStackTrace();
