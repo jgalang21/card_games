@@ -20,6 +20,7 @@ public class WarRules extends PickupRules {
 	/**
 	 * This defaults to creating a new Quorum object with 1,1
 	 */
+
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
 		return new SetQuorumCmd(new Quorum(1, 1));
@@ -41,14 +42,16 @@ public class WarRules extends PickupRules {
 	
 	@Override
 	public Move apply(CardEvent e, Table table, Player player){
-		//somethings wrong here
+		
 		Card c = table.getPile("p1").getCard(e.getId());
 		Card c2 = table.getPile("p2").getCard(e.getId());
 		
+		//if the first card is chosen
 		if ( c != null && c2 == null){
 			return new WarFirstShowCmd(c, player);		
 		}
 		
+		//if the second card is chosen
 		else if ( c == null && c2 != null){
 			return new WarSecondShowCmd(c2, player);		
 		}

@@ -5,6 +5,7 @@ import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
 import model.Card;
+import model.Pile;
 
 public class SweepCmd implements Move {
 	

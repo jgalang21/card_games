@@ -31,19 +31,23 @@ public class WarTable extends TableBase implements Table{
 	}
 	
 	public void setPlayerHand(Player p, Pile pile) {
+		Pile x = piles.get(p.getSocketId());
 		
 	}
 	
 	public Pile getPlayerHand(Player p) {
 		
-		return null;
+		return piles.get(p.getSocketId());
 	}
 	
 	
 	public boolean hasFirstShow() {
 		
+		if(!piles.get("p1Show").equals(null)) {
+			return false;
+		}
 		
-		return false;
+		return true;
 	}
 	
 	public void updateShow1(Card c, Player p) {
@@ -51,7 +55,11 @@ public class WarTable extends TableBase implements Table{
 	}
 	
 	public boolean hasSecondShow() {
-		return false;
+		if(!piles.get("p2Show").equals(null)) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public void updateShow2(Card c, Player p) {
@@ -60,12 +68,13 @@ public class WarTable extends TableBase implements Table{
 	
 	public void setRoundWinnder(Player p) {
 		
-		
+	
 	}
 	
 	public void awardPot() {
 		
 	}
+	
 	
 	
 
