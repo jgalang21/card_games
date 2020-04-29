@@ -12,24 +12,16 @@ import model.PlayerFactory;
 import model.Quorum;
 import model.TableBase;
 
+
 public class WarTable extends TableBase implements Table{
+	
 	private Map<String,Pile> piles = new HashMap<String,Pile>();
-	// following is indexed by player position (playernum)
-	private Map<Integer, Player> players = new HashMap<Integer, Player>();
-	private Random rng = new Random();
-	private boolean matchOver = false;
-	private Quorum quorum = null; 
-	private Integer currentPlayer = -1;
-	private PlayerFactory playerFactory;
-	// following is indexed by socketId
-	private Map<String, Player> playerIndex = new HashMap<String,Player>();
 
 	public WarTable(PlayerFactory pFactory) {
 		super(pFactory);
-	
-		this.playerFactory = pFactory;
+		
 	}
-	
+
 	public void setPlayerHand(Player p, Pile pile) {
 		Pile x = piles.get(p.getSocketId());
 		
@@ -42,12 +34,11 @@ public class WarTable extends TableBase implements Table{
 	
 	
 	public boolean hasFirstShow() {
-		
-		if(!piles.get("p1Show").equals(null)) {
-			return false;
+		if(piles.get("p1Show").cards.size() > 0) {
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public void updateShow1(Card c, Player p) {
@@ -55,18 +46,19 @@ public class WarTable extends TableBase implements Table{
 	}
 	
 	public boolean hasSecondShow() {
-		if(!piles.get("p2Show").equals(null)) {
-			return false;
+		if(piles.get("p2Show").cards.size() > 0) {
+			return true;
 		}
 		
-		return true;
+		return false;
 	}
 	
 	public void updateShow2(Card c, Player p) {
+		Pile x = piles.get(p.getSocketId());
 		
 	}
 	
-	public void setRoundWinnder(Player p) {
+	public void setRoundWinner(Player p) {
 		
 	
 	}
