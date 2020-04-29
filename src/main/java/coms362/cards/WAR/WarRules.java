@@ -1,5 +1,8 @@
 package coms362.cards.WAR;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
@@ -22,6 +25,8 @@ public class WarRules extends PickupRules {
 	 * This defaults to creating a new Quorum object with 1,1
 	 */
 	private Table wt;
+	private int i = 26;
+	private int j = 52; 
 
 	public WarRules(Table table) {
 		this.wt = table;
@@ -66,8 +71,17 @@ public class WarRules extends PickupRules {
 		
 		//winner clicks on their card
 		else if (p1.cards.size() == 1 && p2.cards.size() == 1) {
+			Card temp = p1.cards.get(i);
+			Card temp2 = p2.cards.get(j);
+			
+			if(temp.getNumber() == temp2.getNumber()) {
+				return new SweepCmd(temp2, player);
+			}
 			
 			
+			
+			
+			//update i and j accordingly
 		}
 
 		return new DropEventCmd();
