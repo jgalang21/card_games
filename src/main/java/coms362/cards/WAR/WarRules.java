@@ -75,7 +75,7 @@ public class WarRules extends PickupRules {
 			Card temp2 = p2.cards.get(j);
 			
 			if(temp.getNumber() == temp2.getNumber()) {
-				return new SweepCmd(temp2, player);
+				return new SweepCmd(temp, temp2, player);
 			}
 			
 			
