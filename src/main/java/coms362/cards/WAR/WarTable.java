@@ -13,6 +13,16 @@ import model.Quorum;
 import model.TableBase;
 
 
+/**
+ * This class never gets used unfortunately, although after 
+ * completing what we have, this could've been very useful.
+ * 
+ * Everything here can be ignored for the most part. 
+ * 
+ * 
+ * @author Jeremy and Madison
+ *
+ */
 public class WarTable extends TableBase implements Table{
 	
 	public WarTable(PlayerFactory pFactory) {
