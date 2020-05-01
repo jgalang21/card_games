@@ -26,12 +26,12 @@ public class WarRules extends PickupRules {
 	 */
 	private Table wt;
 	private int i = 26;
-	private int j = 52; 
+	private int j = 52;
+
 
 	public WarRules(Table table) {
 		this.wt = table;
 	}
-	
 
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player) {
@@ -50,38 +50,58 @@ public class WarRules extends PickupRules {
 	public Move apply(DealEvent e, Table table, Player player) {
 		return new WarDealCmd(table, player);
 	}
+	
+	private int a, b;
 
 	@Override
 	public Move apply(CardEvent e, Table table, Player player) {
 
-		Card c = table.getPile("p1").getCard(e.getId());
-		Card c2 = table.getPile("p2").getCard(e.getId());
-		Pile p1 = table.getPile("p1Show");
-		Pile p2 = table.getPile("p2Show");
+		//decide which card is being selected
+				
+		Pile p1 = table.getPile("p1");
+		Pile p2 = table.getPile("p2");
 
-		// if the first card is chosen
-		if (c != null && c2 == null) {
-			return new WarFirstShowCmd(c, player);
-		}
-
-		// if the second card is chosen
-		else if (c == null && c2 != null) {
-			return new WarSecondShowCmd(c2, player);
-		}
+		Pile p1s = table.getPile("p1Show");
+		Pile p2s = table.getPile("p2Show");
 		
-		//winner clicks on their card
-		else if (p1.cards.size() == 1 && p2.cards.size() == 1) {
-			Card temp = p1.cards.get(i);
-			Card temp2 = p2.cards.get(j);
+		// if the show pile is empty, take it from p1's main deck
+		if (p1s.cards.isEmpty()) {
+			a = Integer.parseInt(e.getId());
+			return new WarFirstShowCmd(p1.getCard(e.getId()), player);
+		}
+
+		// if the show pile is empty, take it from p2's main deck
+		else if (p2s.cards.isEmpty()) {
+			b = Integer.parseInt(e.getId());
+			return new WarSecondShowCmd(p2.getCard(e.getId()), player);
+		}
+
+		// winner clicks on their card
+		else if (!p1s.cards.isEmpty() && !p2s.cards.isEmpty()) {
 			
-			if(temp.getNumber() == temp2.getNumber()) {
-				return new SweepCmd(temp, temp2, player);
+			//System.out.println("============" + a + b);
+			
+			if(p1s.cards.get(a).getNumber() == p2s.cards.get(b).getNumber()) {
+				
+				
+				System.out.println("============");
+				System.out.println(a);
+				System.out.println(b);
+				System.out.println("============");
+				b--;
+				a++;
+				
+				System.out.println("============");
+				System.out.println(a);
+				System.out.println(b);
+				System.out.println("============");
 			}
 			
-			
-			
-			
-			//update i and j accordingly
+//			if (temp.getNumber() == temp2.getNumber()) {
+//				return new SweepCmd(temp, temp2, player);
+//			}
+
+			// update i and j accordingly
 		}
 
 		return new DropEventCmd();

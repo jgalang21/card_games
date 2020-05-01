@@ -30,9 +30,7 @@ public class WarFirstShowCmd implements Move{
 		
 		table.removeFromPile("p1", c);
 		table.addToPile("p1Show", c);
-		
-	
-		
+			
 	}
 
 	@Override

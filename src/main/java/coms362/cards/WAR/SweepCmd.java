@@ -17,8 +17,8 @@ public class SweepCmd implements Move {
 	
 	private Card c1;
 	private Card c2; 
-	
-	private String winner; 
+
+	private String winner;
 	private Player p;
 	
 	
@@ -34,17 +34,19 @@ public class SweepCmd implements Move {
 		
 		if(p.getPlayerNum() == 1) {
 		
-			Pile trans = x.getPile("p1");
-		
-			trans.addCard(c1);
-			trans.addCard(c2);
-			
+			x.removeFromPile("p1Show", c1);
+			x.removeFromPile("p2Show", c2);
+			x.addToPile("p1f", c1);
+			x.addToPile("p1f", c2);
+			winner = "p1";
 			
 		}
 		else {
-			Pile trans = x.getPile("p2");
-			trans.addCard(c1);
-			trans.addCard(c2);
+			x.removeFromPile("p1Show", c1);
+			x.removeFromPile("p2Show", c2);
+			x.addToPile("p2", c1);
+			x.addToPile("p2", c2);
+			winner = "p2";
 		}
 		
 		
@@ -56,10 +58,18 @@ public class SweepCmd implements Move {
 
 		views.send(new RemoveFromPileRemote("p1Show", c1));
 		views.send(new RemoveFromPileRemote("p2Show", c2));
-		views.send(new InsertAtPileTopRemote("p1", c1)); //inverted
-		views.send(new InsertAtPileTopRemote("p1", c2)); //inverted
-		views.send(new ShowCardRemote(c1));
-		views.send(new ShowCardRemote(c2));
+		
+		if(winner.equals("p1")) {
+			views.send(new InsertAtPileTopRemote("p1", c1)); //inverted
+			views.send(new InsertAtPileTopRemote("p1", c2)); 
+			
+		}
+		else {
+			views.send(new InsertAtPileTopRemote("p2", c1)); //inverted
+			views.send(new InsertAtPileTopRemote("p2", c2)); 
+		}
+		views.send(new HideCardRemote(c1));
+		views.send(new HideCardRemote(c2));
 	}
 
 }
