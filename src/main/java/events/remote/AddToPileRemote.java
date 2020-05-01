@@ -3,17 +3,18 @@ package events.remote;
 import coms362.cards.streams.Marshalls;
 import model.Card;
 
-public class AddToPileRemote implements Marshalls {
-	private String pileName;
-	private Card c;
+/* This aliases the preferred class InsertAtPileTopRemote with identical functionality.
+ * You should replace references to this class with references to the preferred class
+ */
 
+@Deprecated
+public class AddToPileRemote extends InsertAtPileTopRemote implements Marshalls {
+
+	String pileName;
+	Card c;
+	
 	public AddToPileRemote(String pileName, Card c) {
-		this.pileName = pileName;
-		this.c = c;
-	}
-
-	public String marshall() {
-		return "";
+		super(pileName, c);
 	}
 
 	public String stringify() {

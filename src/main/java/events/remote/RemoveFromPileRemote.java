@@ -5,23 +5,22 @@ import model.Card;
 
 public class RemoveFromPileRemote implements Marshalls {
 
-	private Card c;
+    private Card c;
+    private String pileName;
 
-	public RemoveFromPileRemote(String string, Card c) {
-		this.c = c;
-	}
+    public RemoveFromPileRemote(String pileName, Card c) {
+        this.c = c;
+        this.pileName = pileName;
+    }
 
-	public String marshall() {
-		return String.format(
-			"discardPile.addCard(allCards[%d]);\n"
-			+ "discardPile.render();\n", 
-			c.getId()
-		);
-	}
+    public String marshall() {
+        return String.format("%s.removeCard(allCards[%d]);\n" +
+                "%s.render();\n",
+                pileName, c.getId(), pileName);
+    }
 
-	public String stringify() {
-		return "RemoveFromPileRemote card = "+c.getId();
-	}
-
+    public String stringify() {
+        return "RemoveFromPileRemote card = " + c.getId();
+    }
 }
 
