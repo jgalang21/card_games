@@ -36,11 +36,12 @@ public class WarFirstShowCmd implements Move{
 	@Override
 	public void apply(ViewFacade views) {
 		
+		//views.send(new ShowCardRemote(c));
 		views.send(new HideCardRemote(c));
 		views.send(new RemoveFromPileRemote("p1", c));
 		views.send(new InsertAtPileBottomRemote("p1Show", c)); //inverted
 		views.send(new ShowCardRemote(c));
-		
+		//views.send(new UpdateRemote(c));
 		
 		
 	}

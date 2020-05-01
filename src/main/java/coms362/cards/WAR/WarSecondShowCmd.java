@@ -35,11 +35,14 @@ public class WarSecondShowCmd implements Move{
 	@Override
 	public void apply(ViewFacade views) {
 	
+		//views.send(new ShowCardRemote(c));
+		views.send(new HideCardRemote(c));
 		views.send(new RemoveFromPileRemote("p2", c));
 		views.send(new InsertAtPileBottomRemote("p2Show", c));
-		
-		//views.send(new ShowCardRemote(c));
+		views.send(new ShowCardRemote(c));
 		//views.send(new UpdateRemote(c));
+	
+		
 		
 		
 		

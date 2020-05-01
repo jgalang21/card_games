@@ -10,6 +10,7 @@ import events.remote.InsertAtPileTopRemote;
 import events.remote.RemoveFromPileRemote;
 import events.remote.SetBottomPlayerTextRemote;
 import events.remote.ShowCardRemote;
+import events.remote.UpdateRemote;
 import model.Card;
 import model.Pile;
 
@@ -30,26 +31,24 @@ public class SweepCmd implements Move {
 
 	@Override
 	public void apply(Table table) {
-		WarTable x = (WarTable) table;
+		
 		
 		if(p.getPlayerNum() == 1) {
 		
-			x.removeFromPile("p1Show", c1);
-			x.removeFromPile("p2Show", c2);
-			x.addToPile("p1f", c1);
-			x.addToPile("p1f", c2);
+			table.removeFromPile("p1Show", c1);
+			table.removeFromPile("p2Show", c2);
+			table.addToPile("p1", c1);
+			table.addToPile("p1", c2);
 			winner = "p1";
 			
 		}
 		else {
-			x.removeFromPile("p1Show", c1);
-			x.removeFromPile("p2Show", c2);
-			x.addToPile("p2", c1);
-			x.addToPile("p2", c2);
+			table.removeFromPile("p1Show", c1);
+			table.removeFromPile("p2Show", c2);
+			table.addToPile("p2", c1);
+			table.addToPile("p2", c2);
 			winner = "p2";
-		}
-		
-		
+		}	
 		
 	}
 
@@ -68,8 +67,9 @@ public class SweepCmd implements Move {
 			views.send(new InsertAtPileTopRemote("p2", c1)); //inverted
 			views.send(new InsertAtPileTopRemote("p2", c2)); 
 		}
-		views.send(new HideCardRemote(c1));
-		views.send(new HideCardRemote(c2));
+		
+		views.send(new UpdateRemote(c1));
+		views.send(new UpdateRemote(c2));
 	}
 
 }
