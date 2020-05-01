@@ -25,8 +25,6 @@ public class WarRules extends PickupRules {
 	 * This defaults to creating a new Quorum object with 1,1
 	 */
 
-	private int i = 26;
-	private int j = 52;
 
 	private Table wt = new WarTable(null);
 

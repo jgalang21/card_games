@@ -1,6 +1,8 @@
 package coms362.cards.WAR;
 
 import java.util.Map;
+import java.util.Random;
+
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
@@ -39,7 +41,8 @@ public class WarInitCmd implements Move {
 
 	@Override
 	public void apply(Table table) {
-
+		
+		Random rand = new Random();
 		
 		try {
 			for (String suit : Card.suits) {
@@ -50,14 +53,17 @@ public class WarInitCmd implements Move {
                     card.setFaceUp(false);
                     card.setRotate(0);	
                   
-                
+                    
                     //fill the first player's pile first
-                    if(p1.cards.size() != 26) {
+                    
+                    int x = rand.nextInt(100);
+                    
+                    if(p1.cards.size() != 26 && x % 2 == 1) {
                     	 card.setX(p1.getLocation().getX());
                     	 card.setY(p1.getLocation().getY());
                     	 p1.cards.put(card.getId(), card);
                     }
-                    else { //put the rest in the other player's pile
+                    else  { //put the rest in the other player's pile
                     	
                     	 card.setX(p2.getLocation().getX());
                     	 card.setY(p2.getLocation().getY());
@@ -68,7 +74,7 @@ public class WarInitCmd implements Move {
                    
                 }
             }
-			
+		
             table.addPile(p1);
             table.addPile(p2);
             table.addPile(p1Show);

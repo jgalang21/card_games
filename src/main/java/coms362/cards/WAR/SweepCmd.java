@@ -32,23 +32,48 @@ public class SweepCmd implements Move {
 	@Override
 	public void apply(Table table) {
 		
+		table.removeFromPile("p1Show", c1);
+		table.removeFromPile("p2Show", c2);
 		
-		if(p.getPlayerNum() == 1) {
-		
-			table.removeFromPile("p1Show", c1);
-			table.removeFromPile("p2Show", c2);
+		if(c1.getNumber() > c2.getNumber()) {
+			
 			table.addToPile("p1", c1);
 			table.addToPile("p1", c2);
 			winner = "p1";
-			
 		}
-		else {
-			table.removeFromPile("p1Show", c1);
-			table.removeFromPile("p2Show", c2);
+		
+		else if( c1.getNumber() < c2.getNumber()) {
+
 			table.addToPile("p2", c1);
 			table.addToPile("p2", c2);
 			winner = "p2";
-		}	
+		}
+		
+		else {
+			table.addToPile("p1", c1);
+			table.addToPile("p1", c2);
+			winner = "p1";
+		}
+		
+		
+		
+//		
+//		if(p.getPlayerNum() == 1) {
+//		
+//			table.removeFromPile("p1Show", c1);
+//			table.removeFromPile("p2Show", c2);
+//			table.addToPile("p1", c1);
+//			table.addToPile("p1", c2);
+//			winner = "p1";
+//			
+//		}
+//		else {
+//			table.removeFromPile("p1Show", c1);
+//			table.removeFromPile("p2Show", c2);
+//			table.addToPile("p2", c1);
+//			table.addToPile("p2", c2);
+//			winner = "p2";
+//		}	
 		
 	}
 
@@ -59,17 +84,19 @@ public class SweepCmd implements Move {
 		views.send(new RemoveFromPileRemote("p2Show", c2));
 		
 		if(winner.equals("p1")) {
-			views.send(new InsertAtPileTopRemote("p1", c1)); //inverted
-			views.send(new InsertAtPileTopRemote("p1", c2)); 
+			views.send(new InsertAtPileTopRemote(winner, c1)); //inverted
+			views.send(new InsertAtPileTopRemote(winner, c2)); 
 			
 		}
 		else {
-			views.send(new InsertAtPileTopRemote("p2", c1)); //inverted
-			views.send(new InsertAtPileTopRemote("p2", c2)); 
+			views.send(new InsertAtPileTopRemote(winner, c1)); //inverted
+			views.send(new InsertAtPileTopRemote(winner, c2)); 
 		}
 		
 		views.send(new UpdateRemote(c1));
 		views.send(new UpdateRemote(c2));
 	}
 
+	
+	
 }
