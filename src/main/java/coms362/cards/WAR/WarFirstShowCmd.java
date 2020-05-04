@@ -14,6 +14,13 @@ import events.remote.ShowPlayerScore;
 import events.remote.UpdateRemote;
 import model.Card;
 
+/**
+ * This class is meant for player 1. This move is when player 1 clicks on their
+ * main deck, and it will reveal it in their reveal pile.
+ * 
+ * @author Jeremy and Madison
+ *
+ */
 public class WarFirstShowCmd implements Move{
 	
 	private Card c;
@@ -28,23 +35,25 @@ public class WarFirstShowCmd implements Move{
 	@Override
 	public void apply(Table table) {
 		
+		//remove the card from the main pile
 		table.removeFromPile("p1", c);
+		
+		//add the card to the reveal pile
 		table.addToPile("p1Show", c);
-		
-	
-		
+			
 	}
 
 	@Override
 	public void apply(ViewFacade views) {
 		
+
+		//this just updates the view 
 		views.send(new HideCardRemote(c));
 		views.send(new RemoveFromPileRemote("p1", c));
 		views.send(new InsertAtPileBottomRemote("p1Show", c)); //inverted
 		views.send(new ShowCardRemote(c));
 		
-		
-		
+
 	}
 
 }

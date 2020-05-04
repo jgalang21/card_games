@@ -13,14 +13,26 @@ import model.Quorum;
 import model.TableBase;
 
 
+/**
+ * This class never gets used unfortunately, although after 
+ * completing what we have, this could've been very useful.
+ * 
+ * Everything here can be ignored for the most part. 
+ * 
+ * 
+ * @author Jeremy and Madison
+ *
+ */
 public class WarTable extends TableBase implements Table{
 	
-	private Map<String,Pile> piles = new HashMap<String,Pile>();
-
 	public WarTable(PlayerFactory pFactory) {
 		super(pFactory);
 		
 	}
+
+	private Map<String,Pile> piles = new HashMap<String,Pile>();
+
+
 
 	public void setPlayerHand(Player p, Pile pile) {
 		Pile x = piles.get(p.getSocketId());
