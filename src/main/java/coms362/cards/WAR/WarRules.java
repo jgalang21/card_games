@@ -14,36 +14,6 @@ import events.inbound.SetQuorumEvent;
 import model.Card;
 import model.Pile;
 import model.Quorum;
-/**
- * HOW TO PLAY:
- * 
- * Put these two URLs in the browser
- * 
- * Host:
- * http://localhost:8080/cards362/?host&game=WAR&player=1
- * 
- * Player 2:
- * http://localhost:8080/cards362/?player=2
- * 
- * After clicking deal, two piles will appear. The bottom deck is player 1's deck, and the top
- * belongs to player 2. 
- * 
- * To play, each player must click on their respective deck. So if I'm player 1, I click on the
- * bottom deck and a card will be revealed. 
- * 
- * When both players have revealed 1 card, the winner MUST click on the card they revealed 
- * using their browser and both cards will be placed into their deck. In the event of a tie, 
- * player 1 must click on the revealed card and wins by default. The winner MUST go first and 
- * reveal a card before the other player can go.
- * 
- * Our implementation is a bit buggy and not perfect due to time constraints. The main issue
- * is the decks aren't 100% randomly shuffled, and it relies on the the winner going first 
- * after clicking on their cards they won.
- * 
- * Please email us if you need assistance or have questions. 
- * 
- */
-
 
 /**
  * This class handles all the rules of the game and handles the different type of events 
