@@ -24,3 +24,6 @@ When both players have revealed 1 card, the winner must click on the card they r
 
 If the winner places a card after they won the last round, and the other player attempts to draw a card and nothing happens, have the winner place another card down. (It seems to fix a small bug that occurs).
  
+
+Disclaimer:
+I did not write the main codebase. All rights belong to my professors. 
